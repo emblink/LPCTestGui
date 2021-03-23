@@ -267,6 +267,7 @@ void GUI_X_Delay(int Period)
     volatile uint32_t tNow = CTIMER_GetTimerCountValue(CTIMER);
     while ((CTIMER_GetTimerCountValue(CTIMER) - tNow) < Period)
         ;
+    BOARD_Touch_Poll();
 }
 
 void *emWin_memcpy(void *pDst, const void *pSrc, long size)

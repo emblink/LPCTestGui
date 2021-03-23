@@ -1,0 +1,11 @@
+LPCLatencyTest
+Quantity
+Period
+X10
+Random
+X1000
+Reset
+Start
+STOP
+CONSOLE
+SD_CARD

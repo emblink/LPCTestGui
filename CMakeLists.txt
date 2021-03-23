@@ -62,6 +62,14 @@ add_link_options(
 
 # find . -type d
 include_directories(
+    ./AppWizard/Resource
+    ./AppWizard/Resource/Font
+    ./AppWizard/Resource/Image
+    ./AppWizard/Resource/Keyboard
+    ./AppWizard/Resource/Text
+    ./AppWizard/Source
+    ./AppWizard/Source/CustomCode
+    ./AppWizard/Source/Generated
     ./board
     ./CMSIS
     ./component
@@ -70,11 +78,8 @@ include_directories(
     ./component/uart
     ./device
     ./drivers
-    ./emwin
     ./emwin/emWin_Config
     ./emwin/emWin_header
-    ./emwin/emWin_library
-    ./emwin/emWin_library/MCUXpresso
     ./libs
     ./linker
     ./Resources
@@ -90,6 +95,30 @@ include_directories(
 
 # find -name '*.c'
 set(APP_SOURCE_FILES
+    ./AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
+    ./AppWizard/Resource/Font/NettoOT_24_Normal_EXT_AA4.c
+    ./AppWizard/Resource/Image/DARK_Button_Down_100x30.c
+    ./AppWizard/Resource/Image/DARK_Button_Up_100x30.c
+    ./AppWizard/Resource/Image/DARK_Slider_Shaft_H_Left_Blue_30x16.c
+    ./AppWizard/Resource/Image/DARK_Slider_Shaft_H_Right_Gray_30x16.c
+    ./AppWizard/Resource/Image/DARK_Slider_Thumb_Down_22x22.c
+    ./AppWizard/Resource/Image/DARK_Slider_Thumb_Up_22x22.c
+    ./AppWizard/Resource/Image/DARK_Switch_Body_H_Off_55x20.c
+    ./AppWizard/Resource/Image/DARK_Switch_Body_H_On_55x20.c
+    ./AppWizard/Resource/Image/DARK_Switch_Thumb_26x26.c
+    ./AppWizard/Resource/Image/Progbar_Full_H_Green_200x30.c
+    ./AppWizard/Resource/Image/Progbar_Full_H_White_200x30.c
+    ./AppWizard/Resource/Keyboard/SKEYBOARD_NUMPAD.c
+    ./AppWizard/Resource/Text/APPW_Language_0.c
+    ./AppWizard/Resource/Text/APPW_Pattern.c
+    ./AppWizard/Source/APPW_MainTask.c
+    ./AppWizard/Source/CustomCode/Application.c
+    ./AppWizard/Source/CustomCode/ID_SCREEN_MAIN_Slots.c
+    ./AppWizard/Source/CustomCode/ID_SCREEN_RUNNING_Slots.c
+    ./AppWizard/Source/Generated/APPWConf.c
+    ./AppWizard/Source/Generated/ID_SCREEN_MAIN.c
+    ./AppWizard/Source/Generated/ID_SCREEN_RUNNING.c
+    ./AppWizard/Source/Generated/Resource.c
     ./board/board.c
     ./board/clock_config.c
     ./board/emwin_support.c
@@ -111,12 +140,7 @@ set(APP_SOURCE_FILES
     ./drivers/fsl_reset.c
     ./drivers/fsl_sctimer.c
     ./drivers/fsl_usart.c
-    ./Resources/bmButtonRoundPressed_50x22.c
-    ./Resources/bmButtonRound_50x22.c
-    ./Resources/bmKNOB_124x124.c
-    ./Resources/bmSEGGER_80x40.c
-    ./Resources/Font_AA4_16_B.c
-    ./Resources/Font_AA4_16_L.c
+    ./emwin/emWIn_Config/APPW_X_NoFS.c
     ./source/emwin_temperature_control.c
     ./source/semihost_hardfault.c
     ./startup/startup_lpc54608.c
@@ -132,14 +156,14 @@ add_executable(${TARGET}
 
 target_compile_options(${TARGET} PRIVATE
     $<$<CONFIG:DEBUG>: -O0>
-    $<$<CONFIG:RELEASE>: -O2>
-    -Wall
-    -Wextra
+    $<$<CONFIG:RELEASE>: -Os>
+    # -Wall
+    # -Wextra
 )
 
 target_link_directories(${TARGET} PRIVATE
     libs
-    emwin/emWin_library/MCUXpresso
+    emwin/emWin_library/ARMGCC
     linkerScript
 )
 

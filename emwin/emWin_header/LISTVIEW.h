@@ -3,13 +3,13 @@
 *        Solutions for real time microcontroller applications        *
 **********************************************************************
 *                                                                    *
-*        (c) 1996 - 2019  SEGGER Microcontroller GmbH                *
+*        (c) 1996 - 2020  SEGGER Microcontroller GmbH                *
 *                                                                    *
 *        Internet: www.segger.com    Support:  support@segger.com    *
 *                                                                    *
 **********************************************************************
 
-** emWin V5.50 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 All  Intellectual Property rights  in the Software belongs to  SEGGER.
 emWin is protected by  international copyright laws.  Knowledge of the
 source code may not be used to write a similar product.  This file may
@@ -64,12 +64,15 @@ Purpose     : LISTVIEW include
 
 /*********************************************************************
 *
-*       Color indices
+*       LISTVIEW color indexes
+*
+*  Description
+*    Color indexes to be used by the LISTVIEW widget.
 */
-#define LISTVIEW_CI_UNSEL       0
-#define LISTVIEW_CI_SEL         1
-#define LISTVIEW_CI_SELFOCUS    2
-#define LISTVIEW_CI_DISABLED    3
+#define LISTVIEW_CI_UNSEL       0      // Unselected element.
+#define LISTVIEW_CI_SEL         1      // Selected element, without focus.
+#define LISTVIEW_CI_SELFOCUS    2      // Selected element, with focus.
+#define LISTVIEW_CI_DISABLED    3      // Disabled element.
 
 /************************************************************
 *
@@ -78,6 +81,7 @@ Purpose     : LISTVIEW include
 #define LISTVIEW_CF_AUTOSCROLLBAR_H   (1 << 0)
 #define LISTVIEW_CF_AUTOSCROLLBAR_V   (1 << 1)
 #define LISTVIEW_CF_CELL_SELECT       (1 << 2)                     // Create Flag used to enable cell selection
+#define LISTVIEW_CF_MOTION            (1 << 3)
 #define LISTVIEW_SF_AUTOSCROLLBAR_H   LISTVIEW_CF_AUTOSCROLLBAR_H
 #define LISTVIEW_SF_AUTOSCROLLBAR_V   LISTVIEW_CF_AUTOSCROLLBAR_V
 
@@ -128,6 +132,7 @@ void             LISTVIEW_DeleteRowSorted     (LISTVIEW_Handle hObj, int Row);
 void             LISTVIEW_DisableRow          (LISTVIEW_Handle hObj, unsigned Row);
 void             LISTVIEW_DisableSort         (LISTVIEW_Handle hObj);
 void             LISTVIEW_EnableCellSelect    (LISTVIEW_Handle hObj, unsigned OnOff);  // Enables/disables cell selection
+void             LISTVIEW_EnableMotion        (LISTVIEW_Handle hObj, int OnOff);
 void             LISTVIEW_EnableRow           (LISTVIEW_Handle hObj, unsigned Row);
 void             LISTVIEW_EnableSort          (LISTVIEW_Handle hObj);
 GUI_COLOR        LISTVIEW_GetBkColor          (LISTVIEW_Handle hObj, unsigned Index);
