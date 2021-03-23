@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -24,7 +24,6 @@ Purpose     : MULTIEDIT include
 #define MULTIEDIT_H
 
 #include "WM.h"
-#include "WIDGET.h"
 #include "DIALOG_Type.h"      /* Req. for Create indirect data structure */
 
 #if GUI_WINSUPPORT
@@ -63,10 +62,8 @@ Purpose     : MULTIEDIT include
 *  Description
 *    Color indexes used by the MULTIEDIT widget.
 */
-#define MULTIEDIT_CI_EDIT       0                   // Color in edit mode.
-#define MULTIEDIT_CI_READONLY   1                   // Color in read-only mode.
-#define MULTIEDIT_CI_CURSOR_BK  2                   // BKColor for cursor
-#define MULTIEDIT_CI_CURSOR_FG  3                   // FGColor for cursor
+#define MULTIEDIT_CI_EDIT     0                   // Color in edit mode.
+#define MULTIEDIT_CI_READONLY 1                   // Color in read-only mode.
 
 /*********************************************************************
 *
@@ -124,7 +121,6 @@ void             MULTIEDIT_SetTextAlign     (MULTIEDIT_HANDLE hObj, int Align);
 void             MULTIEDIT_SetAutoScrollH   (MULTIEDIT_HANDLE hObj, int OnOff);
 void             MULTIEDIT_SetAutoScrollV   (MULTIEDIT_HANDLE hObj, int OnOff);
 void             MULTIEDIT_SetBkColor       (MULTIEDIT_HANDLE hObj, unsigned Index, GUI_COLOR color);
-void             MULTIEDIT_SetCursorColor   (MULTIEDIT_HANDLE hObj, unsigned Index, GUI_COLOR color);
 void             MULTIEDIT_SetCursorCharPos (MULTIEDIT_HANDLE hObj, int x, int y);       /* Not yet implemented */
 void             MULTIEDIT_SetCursorPixelPos(MULTIEDIT_HANDLE hObj, int x, int y);       /* Not yet implemented */
 void             MULTIEDIT_SetCursorOffset  (MULTIEDIT_HANDLE hObj, int Offset);
@@ -132,7 +128,6 @@ void             MULTIEDIT_SetHBorder       (MULTIEDIT_HANDLE hObj, unsigned HBo
 void             MULTIEDIT_SetFocusable     (MULTIEDIT_HANDLE hObj, int State);
 void             MULTIEDIT_SetFont          (MULTIEDIT_HANDLE hObj, const GUI_FONT * pFont);
 void             MULTIEDIT_SetInsertMode    (MULTIEDIT_HANDLE hObj, int OnOff);
-void             MULTIEDIT_SetInvertCursor  (MULTIEDIT_HANDLE hObj, int OnOff);
 void             MULTIEDIT_SetBufferSize    (MULTIEDIT_HANDLE hObj, int BufferSize);
 void             MULTIEDIT_SetMaxNumChars   (MULTIEDIT_HANDLE hObj, unsigned MaxNumChars);
 void             MULTIEDIT_SetPrompt        (MULTIEDIT_HANDLE hObj, const char* sPrompt);

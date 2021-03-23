@@ -1,24 +1,24 @@
-@echo off
+@ECHO OFF
 
-cd %~dp0
+SET FOLDERS=Output, oD, oR, ipch, Exe
+SET FILES=*.OPT, *.PLG, *.APS, *.NCB, *.DEP, *.MAK, *.SDF, *.SUO, *.USER, *.depend, *.layout, SimulationTrial_build_log.html
 
-set FOLDERS=Output, oD, oR, ipch, Exe
-set FILES=OPT, PLG, APS, NCB, DEP, MAK, SUO, SDF, USER, depend, layout, html
+ECHO CLEAN.BAT:    Deleting temporary files
 
-echo CLEAN.BAT:    Deleting temporary files
-
-attrib *.SUO -h
-
-for %%i in (%FILES%) do if exist *.%%i (
-  del *.%%i
+FOR %%i IN (%FILES%) DO IF EXIST %%i (
+  ATTRIB %%i -h
+  DEL %%i
+  ECHO %%i
 )
 
-if "%OS%" == "Windows_NT" goto WinNT
+IF "%OS%" == "Windows_NT" GOTO WinNT
 
-for %%i in (%FOLDERS%) do if exist %%i deltree /Y %%i
+FOR %%i IN (%FOLDERS%) DO IF EXIST %%i DELTREE /Y %%i
 
-goto :eof
+GOTO READY
 
 :WinNT
 
-for %%i in (%FOLDERS%) do if exist %%i rd %%i /S/Q
+FOR %%i IN (%FOLDERS%) DO IF EXIST %%i RD %%i /S/Q
+
+:READY

@@ -17,6 +17,6 @@ Purpose     : Content to be managed by customer
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#endif  // APPLICATION_H
+#endif  // RESOURCE_H
 
 /*************************** End of file ****************************/

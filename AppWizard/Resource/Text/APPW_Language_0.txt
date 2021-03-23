@@ -1,9 +1,10 @@
-LPCLatencyTest
 Quantity
 Period
-X10
-Random
-X1000
+Console
+SD_Card
+Start
+Reset
+000
 Reset
 Start
 STOP

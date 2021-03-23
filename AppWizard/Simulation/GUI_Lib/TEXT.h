@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -108,7 +108,6 @@ GUI_WRAPMODE         TEXT_GetWrapMode  (TEXT_Handle hObj);
 void                 TEXT_SetBkColor   (TEXT_Handle hObj, GUI_COLOR Color);
 void                 TEXT_SetFont      (TEXT_Handle hObj, const GUI_FONT * pFont);
 int                  TEXT_SetDec       (TEXT_Handle hObj, I32 v, U8 Len, U8 Shift, U8 Signed, U8 Space);
-int                  TEXT_SetHex       (TEXT_Handle hObj, I32 v, U8 Len);
 #if GUI_SUPPORT_ROTATION
 void                 TEXT_SetRotation  (TEXT_Handle hObj, const GUI_ROTATION * pLCD_Api);
 #endif

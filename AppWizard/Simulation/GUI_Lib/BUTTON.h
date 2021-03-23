@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -70,8 +70,6 @@ Purpose     : BUTTON public header file (API)
 */
 #define BUTTON_STATE_FOCUS      WIDGET_STATE_FOCUS
 #define BUTTON_STATE_PRESSED    WIDGET_STATE_USER0
-#define BUTTON_STATE_TOGGLEMODE WIDGET_STATE_USER1
-#define BUTTON_STATE_TOGGLED    WIDGET_STATE_USER2
 
 /*********************************************************************
 *
@@ -170,13 +168,11 @@ int                BUTTON_SetText            (BUTTON_Handle hObj, const char* s)
 void               BUTTON_SetTextAlign       (BUTTON_Handle hObj, int Align);
 void               BUTTON_SetTextColor       (BUTTON_Handle hObj, unsigned int Index, GUI_COLOR Color);
 void               BUTTON_SetTextOffset      (BUTTON_Handle hObj, int xPos, int yPos);
-void               BUTTON_SetToggleMode      (BUTTON_Handle hObj, int OnOff);
 void               BUTTON_SetSelfDrawEx      (BUTTON_Handle hObj, unsigned int Index, GUI_DRAW_SELF_CB * pDraw, int x, int y); /* Not to be doc. */
 void               BUTTON_SetSelfDraw        (BUTTON_Handle hObj, unsigned int Index, GUI_DRAW_SELF_CB * pDraw);               /* Not to be doc. */
 void               BUTTON_SetReactOnLevel    (void);
 void               BUTTON_SetReactOnTouch    (void);
 int                BUTTON_SetUserData        (BUTTON_Handle hObj, const void * pSrc, int NumBytes);
-int                BUTTON_Toggle             (BUTTON_Handle hObj);
 
 #define BUTTON_SetFocussable BUTTON_SetFocusable
 #define BUTTON_SetFocusable  WIDGET_SetFocusable

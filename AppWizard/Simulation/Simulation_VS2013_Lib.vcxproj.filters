@@ -46,18 +46,6 @@
     <ClCompile Include="..\Source\**\*.c" />
     <ClCompile Include="..\Source\**\*.c" />
     <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config\GUIConf.h">

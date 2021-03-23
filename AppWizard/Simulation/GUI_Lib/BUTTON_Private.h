@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -52,22 +52,22 @@ typedef struct {
 } BUTTON_SKIN_PRIVATE;
 
 typedef struct {
-  GUI_COLOR           aBkColor[3];
-  GUI_COLOR           aTextColor[3];
-  GUI_COLOR           FocusColor;
-  GUI_COLOR           FrameColor;
-  const GUI_FONT    * pFont;
+  GUI_COLOR aBkColor[3];
+  GUI_COLOR aTextColor[3];
+  GUI_COLOR FocusColor;
+  GUI_COLOR FrameColor;
+  const GUI_FONT * pFont;
   BUTTON_SKIN_PRIVATE SkinPrivate;
-  I16                 Align;
-  I16                 xPosText, yPosText;
+  I16 Align;
+  I16 xPosText, yPosText;
 } BUTTON_PROPS;
 
 typedef struct {
-  WIDGET              Widget;
-  BUTTON_PROPS        Props;
+  WIDGET Widget;
+  BUTTON_PROPS Props;
   WIDGET_SKIN const * pWidgetSkin;
-  WM_HMEM             hpText;
-  WM_HMEM             ahDrawObj[3];
+  WM_HMEM hpText;
+  WM_HMEM ahDrawObj[3];
 } BUTTON_Obj;
 
 /*********************************************************************

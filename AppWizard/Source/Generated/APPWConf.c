@@ -25,9 +25,10 @@ Purpose     : Generated file do NOT edit!
 */
 #define XSIZE_PHYS 480
 #define YSIZE_PHYS 272
-#define COLOR_CONVERSION GUICC_M8888I
+#define COLOR_CONVERSION GUICC_M565
 #define DISPLAY_DRIVER GUIDRV_WIN32
 #define NUM_BUFFERS   2
+#define _aVarList NULL
 
 /*********************************************************************
 *
@@ -40,8 +41,7 @@ Purpose     : Generated file do NOT edit!
 *       _apRootList
 */
 static APPW_ROOT_INFO * _apRootList[] = {
-  &ID_SCREEN_MAIN_RootInfo,
-  &ID_SCREEN_RUNNING_RootInfo,
+  &ID_SCREEN_00_RootInfo,
 };
 
 /*********************************************************************
@@ -52,18 +52,9 @@ static unsigned _NumScreens = GUI_COUNTOF(_apRootList);
 
 /*********************************************************************
 *
-*       _aVarList
-*/
-static APPW_VAR_OBJECT _aVarList[] = {
-  { ID_VAR_QUANTITY, 0, 0 },
-  { ID_VAR_PERIOD, 0, 0 },
-};
-
-/*********************************************************************
-*
 *       _NumVars
 */
-static unsigned _NumVars = GUI_COUNTOF(_aVarList);
+static unsigned _NumVars = 0;
 
 static const char * _apLang[] = {
   (const char *)acAPPW_Language_0,

@@ -22,7 +22,7 @@ Purpose     : Windows file system access
 
 #if defined(WIN32)
 
-// #include <Windows.h>
+#include <Windows.h>
 
 #include "AppWizard.h"
 

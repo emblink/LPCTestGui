@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -71,7 +71,6 @@ struct EDIT_Obj_struct {
   U8                   EditMode;        // Insert or overwrite mode
   U8                   XSizeCursor;     // Size of cursor when working in insert mode
   U8                   Flags;
-  U8                   Radius;          // Currently only used by AppWizard
   tEDIT_AddKeyEx     * pfAddKeyEx;      // Handle key input
   tEDIT_UpdateBuffer * pfUpdateBuffer;  // Update textbuffer
   EDIT_PROPS           Props;

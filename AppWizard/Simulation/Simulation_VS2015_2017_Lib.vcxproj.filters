@@ -30,32 +30,6 @@
     <ClCompile Include="Config\APPW_X_WIN32.c">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Source\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
-    <ClCompile Include="..\Resource\**\*.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config\GUIConf.h">

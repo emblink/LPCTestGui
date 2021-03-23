@@ -15,7 +15,6 @@ Purpose     : ...
 */
 
 #include "GUI.h"
-#include "AppWizard.h"
 
 /*********************************************************************
 *
@@ -24,22 +23,6 @@ Purpose     : ...
 **********************************************************************
 */
 #define GUI_NUMBYTES  0x800000
-
-/*********************************************************************
-*
-*       Static code
-*
-**********************************************************************
-*/
-/*********************************************************************
-*
-*       _Init
-*/
-#ifdef SPY
-static void _Init(void) {
-  GUI_SPY_StartServer();
-}
-#endif
 
 /*********************************************************************
 *
@@ -68,16 +51,6 @@ void GUI_X_Config(void) {
   // Create and select default font
   //
   GUI_SetDefaultFont(&GUI_Font6x8);
-  //
-  // Call custom function after initializatio
-  //
-#ifdef SPY
-  GUI_SetAfterInitHook(_Init);
-#endif
-  //
-  // Set spy function
-  //
-  GUI_SPY_SetProcessFunc(APPW_SPY_Process);
 }
 
 /*************************** End of file ****************************/

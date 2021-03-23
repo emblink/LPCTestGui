@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -73,7 +73,6 @@ int  ROTARY_GetImageSize (ROTARY_Handle hObj, int * pxSize, int * pySize);
 int  ROTARY_GetMarkerSize(ROTARY_Handle hObj, int * pxSize, int * pySize);
 int  ROTARY_GetUserData  (ROTARY_Handle hObj, void * pDest, int NumBytes);
 I32  ROTARY_GetValue     (ROTARY_Handle hObj);
-void ROTARY_SetAlign     (ROTARY_Handle hObj, int Align, int xOff, int yOff);
 void ROTARY_SetAngle     (ROTARY_Handle hObj, I32 Pos);
 void ROTARY_SetBitmap    (ROTARY_Handle hObj, const GUI_BITMAP * pBitmap);
 void ROTARY_SetBitmapObj (ROTARY_Handle hObj, GUI_DRAW_HANDLE hDrawObj);

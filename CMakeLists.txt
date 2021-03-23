@@ -96,29 +96,21 @@ include_directories(
 # find -name '*.c'
 set(APP_SOURCE_FILES
     ./AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
-    ./AppWizard/Resource/Font/NettoOT_24_Normal_EXT_AA4.c
-    ./AppWizard/Resource/Image/DARK_Button_Down_100x30.c
-    ./AppWizard/Resource/Image/DARK_Button_Up_100x30.c
-    ./AppWizard/Resource/Image/DARK_Slider_Shaft_H_Left_Blue_30x16.c
-    ./AppWizard/Resource/Image/DARK_Slider_Shaft_H_Right_Gray_30x16.c
-    ./AppWizard/Resource/Image/DARK_Slider_Thumb_Down_22x22.c
-    ./AppWizard/Resource/Image/DARK_Slider_Thumb_Up_22x22.c
-    ./AppWizard/Resource/Image/DARK_Switch_Body_H_Off_55x20.c
-    ./AppWizard/Resource/Image/DARK_Switch_Body_H_On_55x20.c
-    ./AppWizard/Resource/Image/DARK_Switch_Thumb_26x26.c
-    ./AppWizard/Resource/Image/Progbar_Full_H_Green_200x30.c
-    ./AppWizard/Resource/Image/Progbar_Full_H_White_200x30.c
+    ./AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
+    ./AppWizard/Resource/Image/ButtonDarkUnpressed_100x30.c
+    ./AppWizard/Resource/Image/SliderDarkBlueLeft_30x16.c
+    ./AppWizard/Resource/Image/SliderDarkGrayRight_30x16.c
+    ./AppWizard/Resource/Image/SliderDarkThumbUnpressed_22x22.c
     ./AppWizard/Resource/Keyboard/SKEYBOARD_NUMPAD.c
     ./AppWizard/Resource/Text/APPW_Language_0.c
     ./AppWizard/Resource/Text/APPW_Pattern.c
     ./AppWizard/Source/APPW_MainTask.c
     ./AppWizard/Source/CustomCode/Application.c
-    ./AppWizard/Source/CustomCode/ID_SCREEN_MAIN_Slots.c
-    ./AppWizard/Source/CustomCode/ID_SCREEN_RUNNING_Slots.c
+    ./AppWizard/Source/CustomCode/ID_SCREEN_00_Slots.c
     ./AppWizard/Source/Generated/APPWConf.c
-    ./AppWizard/Source/Generated/ID_SCREEN_MAIN.c
-    ./AppWizard/Source/Generated/ID_SCREEN_RUNNING.c
+    ./AppWizard/Source/Generated/ID_SCREEN_00.c
     ./AppWizard/Source/Generated/Resource.c
+    
     ./board/board.c
     ./board/clock_config.c
     ./board/emwin_support.c

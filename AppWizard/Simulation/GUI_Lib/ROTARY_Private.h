@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -40,24 +40,21 @@ typedef struct {
 } ROTARY_PROPS;
 
 typedef struct {
-  WIDGET            Widget;            // (obvious)
-  ROTARY_PROPS      Props;             // (obvious)
-  WM_HMEM           hContext;          // Motion context
-  I32               Angle;             // Current angle within the given range (AngNeg & AngPos)
-  I32               Snap;              // Snap section
-  I32               MinVRange;         // Minimum of value range
-  I32               MaxVRange;         // Maximum of value range
-  I32               AngPos;            // Positive turning angle in 10th of degrees
-  I32               AngNeg;            // Negative turning angle in 10th of degrees
-  I16               Align;             // Alignment of marker
-  I16               xOff, yOff;        // Additional offset(s) for marker
-  int               Radius;            // Mid point difference between widget and marker
-  I32               Offset;            // Angle offset for drawing marker
-  U8                DoRotate;          // If set the marker image is rotated
-  WM_HMEM           hDrawObjBk;        // Background image
-  WM_HMEM           hDrawObjMarker;    // Draw object for marker image
-  WM_HMEM           hDrawObjMarkerHR;  // Draw object for marker image (HR)
-  GUI_MEMDEV_Handle hMemMarker;        // Handle of marker device
+  WIDGET       Widget;            // (obvious)
+  ROTARY_PROPS Props;             // (obvious)
+  WM_HMEM      hContext;          // Motion context
+  I32          Angle;             // Current angle within the given range (AngNeg & AngPos)
+  I32          Snap;              // Snap section
+  I32          MinVRange;         // Minimum of value range
+  I32          MaxVRange;         // Maximum of value range
+  I32          AngPos;            // Positive turning angle in 10th of degrees
+  I32          AngNeg;            // Negative turning angle in 10th of degrees
+  int          Radius;            // Mid point difference between widget and marker
+  I32          Offset;            // Angle offset for drawing marker
+  U8           DoRotate;          // If set the marker image is rotated
+  WM_HMEM      hDrawObjBk;        // Background image
+  WM_HMEM      hDrawObjMarker;    // Draw object for marker image
+  WM_HMEM      hDrawObjMarkerHR;  // Draw object for marker image (HR)
 } ROTARY_OBJ;
 
 /*********************************************************************

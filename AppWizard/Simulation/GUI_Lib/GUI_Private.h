@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -457,7 +457,6 @@ int GUI_GetBitsPerPixelEx(int LayerIndex);
 *   THEY HAVE TO CORRESPOND TO THE DEFINITIONS WITHIN THE CODE OF THE BITMAPCONVERTER!
 */
 #define GUI_STREAM_FORMAT_INDEXED    100 /* DO NOT CHANGE */
-#define GUI_STREAM_FORMAT_RLE1       32  /* DO NOT CHANGE */
 #define GUI_STREAM_FORMAT_RLE4       6   /* DO NOT CHANGE */
 #define GUI_STREAM_FORMAT_RLE8       7   /* DO NOT CHANGE */
 #define GUI_STREAM_FORMAT_565        8   /* DO NOT CHANGE */

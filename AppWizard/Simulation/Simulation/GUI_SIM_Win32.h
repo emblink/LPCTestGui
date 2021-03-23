@@ -23,7 +23,7 @@ Purpose     : Declares public functions of Simulation
 #ifndef SIM_GUI_H
 #define SIM_GUI_H
 
-// #include <windows.h>
+#include <windows.h>
 
 #if defined(__cplusplus)
 extern "C" {     /* Make sure we have C-declarations in C++ programs */

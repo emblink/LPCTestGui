@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -66,7 +66,6 @@ typedef struct {
   int              aBorderSize[4];
   U8               Flags;
   int              Threshold;
-  unsigned         Overlap;
 } SWIPELIST_PROPS;
 
 typedef struct {

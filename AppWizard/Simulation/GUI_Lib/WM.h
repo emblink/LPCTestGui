@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 
-** emWin V6.16 - Graphical user interface for embedded applications **
+** emWin V6.14 - Graphical user interface for embedded applications **
 emWin is protected by international copyright laws.   Knowledge of the
 source code may not be used to write a similar product.  This file may
 only  be used  in accordance  with  a license  and should  not be  re-
@@ -335,8 +335,6 @@ typedef struct {
 
 #define WM_USER_DATA                52      /* Send immediately after setting user data */
 #define WM_SET_CALLBACK             53      /* Send immediately after setting user data */
-
-#define WM_GET_OFFSET               54      /* Return alignment offset */
 
 #define WM_GESTURE                  0x0119  /* Gesture message */
 
@@ -780,8 +778,7 @@ GUI_COLOR WM_GetBkColor              (WM_HWIN hObj);
 
 /* Change Z-Order of windows */
 void WM_BringToBottom(WM_HWIN hWin);
-void WM_BringToTop   (WM_HWIN hWin);
-void WM_BringBehind  (WM_HWIN hWinFore, WM_HWIN hWinBack);
+void WM_BringToTop(WM_HWIN hWin);
 
 GUI_COLOR WM_SetDesktopColor  (GUI_COLOR Color);
 GUI_COLOR WM_SetDesktopColorEx(GUI_COLOR Color, unsigned int LayerIndex);

@@ -797,7 +797,7 @@ int main(void)
     CLOCK_SetClkDiv(kCLOCK_DivLcdClk, 1, true);
 
     BOARD_InitPins();
-    BOARD_BootClockFROHF96M();
+    BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
     BOARD_InitSDRAM();
 
