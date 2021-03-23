@@ -1,0 +1,86 @@
+COMPILER
+
+arm-none-eabi-gcc
+-std=gnu99
+-DCPU_LPC54608J512ET180=1
+-DCPU_LPC54608J512ET180_cm4
+-DCPU_LPC54608
+-D__USE_CMSIS
+-DSERIAL_PORT_TYPE_UART=1
+-DSDK_DEBUGCONSOLE=1
+-DCR_INTEGER_PRINTF
+-DPRINTF_FLOAT_ENABLE=0
+-D__MCUXPRESSO
+-DDEBUG
+-D__NEWLIB__
+
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\board"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\source"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\drivers"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\device"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\CMSIS"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\touchpanel"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\emwin\emWin_Config"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\emwin\emWin_header"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\utilities"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\component\serial_manager"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\component\lists"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\component\uart"
+-I"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\Resources"
+
+-O0
+-fno-common
+-g3
+-Wall
+-c
+-ffunction-sections
+-fdata-sections
+-ffreestanding
+-fno-builtin
+-fmerge-constants
+-fmacro-prefix-map="../component/serial_manager/"=.
+-mcpu=cortex-m4
+-mfpu=fpv4-sp-d16
+-mfloat-abi=hard
+-mthumb
+-D__NEWLIB__
+-fstack-usage
+-specs=nano.specs
+-MMD
+-MP
+-MF"component/serial_manager/serial_manager.d"
+-MT"component/serial_manager/serial_manager.o"
+-MT"component/serial_manager/serial_manager.d"
+-o "component/serial_manager/serial_manager.o"
+"../component/serial_manager/serial_manager.c"
+
+LINKER
+
+arm-none-eabi-gcc
+-nostdlib
+-L"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\libs"
+-L"C:\Users\embli\Documents\MCUXpressoIDE_11.2.0_4120\workspace\lpcxpresso54608_emwin_temperature_control\emwin\emWin_library\MCUXpresso"
+-Xlinker -Map="lpcxpresso54608_emwin_temperature_control.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment
+-Xlinker --cref
+-mcpu=cortex-m4
+-mfpu=fpv4-sp-d16
+-mfloat-abi=hard
+-mthumb
+-T lpcxpresso54608_emwin_temperature_control_Debug.ld
+-o "lpcxpresso54608_emwin_temperature_control.axf"
+
+./utilities/fsl_assert.o ./utilities/fsl_debug_console.o ./utilities/fsl_str.o
+./touchpanel/fsl_ft5406.o  ./startup/startup_lpc54608.o  ./source/emwin_temperature_control.o
+./source/semihost_hardfault.o  ./drivers/fsl_clock.o ./drivers/fsl_common.o ./drivers/fsl_ctimer.o
+./drivers/fsl_emc.o ./drivers/fsl_flexcomm.o ./drivers/fsl_gpio.o ./drivers/fsl_i2c.o
+./drivers/fsl_lcdc.o ./drivers/fsl_power.o ./drivers/fsl_reset.o ./drivers/fsl_sctimer.o
+./drivers/fsl_usart.o  ./device/system_LPC54608.o  ./component/uart/usart_adapter.o
+./component/serial_manager/serial_manager.o ./component/serial_manager/serial_port_uart.o
+./component/lists/generic_list.o  ./board/board.o ./board/clock_config.o ./board/emwin_support.o
+./board/pin_mux.o  ./Resources/Font_AA4_16_B.o ./Resources/Font_AA4_16_L.o
+./Resources/bmButtonRoundPressed_50x22.o ./Resources/bmButtonRound_50x22.o
+./Resources/bmKNOB_124x124.o ./Resources/bmSEGGER_80x40.o
+
+-lpower_hardabi
+-lemWin_M4F
