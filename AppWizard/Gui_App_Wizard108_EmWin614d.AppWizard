@@ -9,6 +9,7 @@
   EnableBiDi=0
   EnableThai=0
   <Bitmaps>
+    Format=corsair.jpg,16
   </Bitmaps>
   <Text>
     <Id>
@@ -18,6 +19,11 @@
       Id=ID_RTEXT_3
       Id=ID_RTEXT_4
       Id=ID_RTEXT_5
+      Id=ID_RTEXT_6
+      Id=ID_RTEXT_7
+      Id=ID_RTEXT_8
+      Id=ID_RTEXT_9
+      Id=ID_RTEXT_10
     </Id>
     <Lang>
       Name=ENG
@@ -27,6 +33,11 @@
       Text=SD_Card
       Text=Start
       Text=Reset
+      Text=Standart
+      Text=Random
+      Text=Pattern
+      Text=Select test
+      Text=Back
     </Lang>
   </Text>
   <Variables>
@@ -34,7 +45,311 @@
   <Objects>
     <Screen>
       ParentId=0
-      IdString=ID_SCREEN_00
+      IdString=ID_SCREEN_SCREENSAVER
+      Id=2048
+      RootId=6146
+      <Dispose>
+        xSize=0
+        ySize=0
+        <X0>
+          Mode=2
+          Off=0
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=0
+          Id=0
+        </Y0>
+        <X1>
+          Mode=2
+          Off=0
+          Id=0
+        </X1>
+        <Y1>
+          Mode=2
+          Off=0
+          Id=0
+        </Y1>
+      </Dispose>
+    </Screen>
+    <Box>
+      ParentId=2048
+      IdString=ID_BOX_00
+      Id=2049
+      <Dispose>
+        xSize=0
+        ySize=0
+        <X0>
+          Mode=2
+          Off=0
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=0
+          Id=0
+        </Y0>
+        <X1>
+          Mode=2
+          Off=0
+          Id=0
+        </X1>
+        <Y1>
+          Mode=2
+          Off=0
+          Id=0
+        </Y1>
+      </Dispose>
+      <SetColor>
+        Color=ff000000
+      </SetColor>
+    </Box>
+    <Image>
+      ParentId=2048
+      IdString=ID_IMAGE_00
+      Id=2051
+      <Dispose>
+        xSize=100
+        ySize=100
+        <X0>
+          Mode=2
+          Off=190
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=86
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetGIF>
+        Image=corsair100x100.gif
+      </SetGIF>
+      <SetTile>
+      </SetTile>
+    </Image>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_UNLOCK
+      Id=2050
+      <Dispose>
+        xSize=100
+        ySize=100
+        <X0>
+          Mode=2
+          Off=190
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=86
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+      </SetSbitmaps>
+      <SetColors>
+        Color3=       0
+      </SetColors>
+    </Button>
+    <Screen>
+      ParentId=0
+      IdString=ID_SCREEN_CHOOSE_TEST
+      Id=2048
+      RootId=6145
+      <Dispose>
+        xSize=0
+        ySize=0
+        <X0>
+          Mode=2
+          Off=0
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=0
+          Id=0
+        </Y0>
+        <X1>
+          Mode=2
+          Off=0
+          Id=0
+        </X1>
+        <Y1>
+          Mode=2
+          Off=0
+          Id=0
+        </Y1>
+      </Dispose>
+    </Screen>
+    <Box>
+      ParentId=2048
+      IdString=ID_BOX_00
+      Id=2049
+      <Dispose>
+        xSize=0
+        ySize=0
+        <X0>
+          Mode=2
+          Off=0
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=0
+          Id=0
+        </Y0>
+        <X1>
+          Mode=2
+          Off=0
+          Id=0
+        </X1>
+        <Y1>
+          Mode=2
+          Off=0
+          Id=0
+        </Y1>
+      </Dispose>
+      <SetColor>
+        Color=ff000000
+      </SetColor>
+    </Box>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_STANDART_TEST
+      Id=2051
+      <Dispose>
+        xSize=100
+        ySize=30
+        <X0>
+          Mode=2
+          Off=190
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=80
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=6
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_RANDOM_TEST
+      Id=2052
+      <Dispose>
+        xSize=100
+        ySize=30
+        <X0>
+          Mode=2
+          Off=190
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=130
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=7
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_PATTERN_TEST
+      Id=2053
+      <Dispose>
+        xSize=100
+        ySize=30
+        <X0>
+          Mode=2
+          Off=190
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=180
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=8
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Button>
+    <Text>
+      ParentId=2048
+      IdString=ID_TEXT_00
+      Id=2054
+      <Dispose>
+        xSize=109
+        ySize=30
+        <X0>
+          Mode=2
+          Off=186
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=30
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetColor>
+        Color=ffffff00
+      </SetColor>
+      <SetTextAlign>
+        Alignment=14
+        xOff=0
+        yOff=0
+      </SetTextAlign>
+      <SetTextId>
+        Id=9
+      </SetTextId>
+      <SetFont>
+        Font=Roboto_24_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Text>
+    <Screen>
+      ParentId=0
+      IdString=ID_SCREEN_STANDART_TEST
       Id=2048
       RootId=6144
       <Dispose>
@@ -91,7 +406,7 @@
         </Y1>
       </Dispose>
       <SetColor>
-        Color=ff191919
+        Color=ff000000
       </SetColor>
     </Box>
     <Keyboard>
@@ -122,10 +437,10 @@
     </Keyboard>
     <Button>
       ParentId=2048
-      IdString=ID_BUTTON_00
+      IdString=ID_BUTTON_CONSOLE
       Id=2050
       <Dispose>
-        xSize=100
+        xSize=60
         ySize=30
         <X0>
           Mode=2
@@ -149,17 +464,20 @@
       <SetTextId>
         Id=2
       </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
     </Button>
     <Button>
       ParentId=2048
-      IdString=ID_BUTTON_01
+      IdString=ID_BUTTON_SD_CARD
       Id=2051
       <Dispose>
-        xSize=100
+        xSize=60
         ySize=30
         <X0>
           Mode=2
-          Off=140
+          Off=100
           Id=0
         </X0>
         <Y0>
@@ -179,6 +497,9 @@
       <SetTextId>
         Id=3
       </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
     </Button>
     <Edit>
       ParentId=2048
@@ -351,6 +672,9 @@
       <SetTextId>
         Id=0
       </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
     </Text>
     <Text>
       ParentId=2048
@@ -381,17 +705,20 @@
       <SetTextId>
         Id=1
       </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
     </Text>
     <Button>
       ParentId=2048
-      IdString=ID_BUTTON_02
+      IdString=ID_BUTTON_START
       Id=2059
       <Dispose>
-        xSize=100
+        xSize=60
         ySize=30
         <X0>
           Mode=2
-          Off=140
+          Off=180
           Id=0
         </X0>
         <Y0>
@@ -411,13 +738,16 @@
       <SetTextId>
         Id=4
       </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
     </Button>
     <Button>
       ParentId=2048
-      IdString=ID_BUTTON_03
+      IdString=ID_BUTTON_RESET
       Id=2060
       <Dispose>
-        xSize=100
+        xSize=60
         ySize=30
         <X0>
           Mode=2
@@ -441,9 +771,69 @@
       <SetTextId>
         Id=5
       </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_BACK
+      Id=2061
+      <Dispose>
+        xSize=60
+        ySize=30
+        <X0>
+          Mode=2
+          Off=100
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=225
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=10
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
     </Button>
   </Objects>
   <Interactions>
+    <SWAPSCREEN>
+      RootId=6146
+      IdSrc=ID_BUTTON_UNLOCK
+      NCode=WM_NOTIFICATION_CLICKED
+      Slot=ID_SCREEN_SCREENSAVER__ID_BUTTON_UNLOCK__WM_NOTIFICATION_CLICKED
+      Flags=0
+      <Para>
+        RootId=6145
+      </Para>
+    </SWAPSCREEN>
+    <SHIFTSCREEN>
+      RootId=6145
+      IdSrc=ID_BUTTON_STANDART_TEST
+      NCode=WM_NOTIFICATION_CLICKED
+      Slot=ID_SCREEN_CHOOSE_TEST__ID_BUTTON_STANDART_TEST__WM_NOTIFICATION_CLICKED
+      Flags=0
+      <Para>
+        RootId=6144
+        Edge=APPW_EDGE_LEFT
+        Ease=ANIM_LINEAR
+        Period=100
+        Disclose=1
+      </Para>
+    </SHIFTSCREEN>
     <SETVALUE>
       RootId=6144
       IdSrc=ID_SLIDER_00
@@ -466,5 +856,19 @@
         Value=0
       </Para>
     </SETVALUE>
+    <SHIFTSCREEN>
+      RootId=6144
+      IdSrc=ID_BUTTON_BACK
+      NCode=WM_NOTIFICATION_CLICKED
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_BACK__WM_NOTIFICATION_CLICKED
+      Flags=0
+      <Para>
+        RootId=6145
+        Edge=APPW_EDGE_RIGHT
+        Ease=ANIM_LINEAR
+        Period=100
+        Disclose=1
+      </Para>
+    </SHIFTSCREEN>
   </Interactions>
 </Project>

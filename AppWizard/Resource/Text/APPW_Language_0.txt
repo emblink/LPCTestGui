@@ -4,9 +4,10 @@ Console
 SD_Card
 Start
 Reset
-000
-Reset
-Start
-STOP
-CONSOLE
-SD_CARD
+Standart
+Random
+Pattern
+Select test
+Back
+LPC Latency Test
+Reset Board
