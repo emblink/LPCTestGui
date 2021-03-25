@@ -28,7 +28,6 @@ Purpose     : Generated file do NOT edit!
 #define COLOR_CONVERSION GUICC_M565
 #define DISPLAY_DRIVER GUIDRV_WIN32
 #define NUM_BUFFERS   2
-#define _aVarList NULL
 
 /*********************************************************************
 *
@@ -54,9 +53,20 @@ static unsigned _NumScreens = GUI_COUNTOF(_apRootList);
 
 /*********************************************************************
 *
+*       _aVarList
+*/
+static APPW_VAR_OBJECT _aVarList[] = {
+  { ID_VAR_QUANTITY, 0, 1 },
+  { ID_VAR_PRESS_PERIOD, 0, 65 },
+  { ID_VAR_PRESS_DURATION, 0, 1 },
+  { ID_VAR_USB_DEVICE_CONFIGURED, 0, 0 },
+};
+
+/*********************************************************************
+*
 *       _NumVars
 */
-static unsigned _NumVars = 0;
+static unsigned _NumVars = GUI_COUNTOF(_aVarList);
 
 static const char * _apLang[] = {
   (const char *)acAPPW_Language_0,

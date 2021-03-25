@@ -21,12 +21,6 @@ Purpose     : Generated file do NOT edit!
 
 /*********************************************************************
 *
-*       Keyboard layouts
-*/
-extern const unsigned char acSKEYBOARD_NUMPAD[];
-
-/*********************************************************************
-*
 *       Text
 */
 #define ID_RTEXT_0 0
@@ -42,6 +36,13 @@ extern const unsigned char acSKEYBOARD_NUMPAD[];
 #define ID_RTEXT_10 10
 #define ID_RTEXT_11 11
 #define ID_RTEXT_12 12
+#define ID_RTEXT_13 13
+#define ID_RTEXT_14 14
+#define ID_RTEXT_15 15
+#define ID_RTEXT_16 16
+#define ID_RTEXT_17 17
+#define ID_RTEXT_18 18
+#define ID_RTEXT_19 19
 
 #define APPW_MANAGE_TEXT APPW_MANAGE_TEXT_EXT
 extern const unsigned char acAPPW_Language_0[];
@@ -50,19 +51,28 @@ extern const unsigned char acAPPW_Language_0[];
 *
 *       Fonts
 */
+extern const unsigned char acNotoSans_24_Normal_EXT_AA4[];
 extern const unsigned char acNettoOT_16_Normal_EXT_AA4[];
-extern const unsigned char acRoboto_24_Normal_EXT_AA4[];
 
 /*********************************************************************
 *
 *       Images
 */
+extern const unsigned char accorsairLogoCubeGif100x100_30fps[];
 extern const unsigned char acButtonDarkUnpressed_100x30[];
 extern const unsigned char acButtonDarkPressed_100x30[];
-extern const unsigned char accorsairLogoCubeGif100x100_30fps[];
 extern const unsigned char acSliderDarkBlueLeft_30x16[];
 extern const unsigned char acSliderDarkGrayRight_30x16[];
 extern const unsigned char acSliderDarkThumbUnpressed_22x22[];
+
+/*********************************************************************
+*
+*       Variables
+*/
+#define ID_VAR_QUANTITY 4096
+#define ID_VAR_PRESS_PERIOD 4097
+#define ID_VAR_PRESS_DURATION 4098
+#define ID_VAR_USB_DEVICE_CONFIGURED 4099
 
 /*********************************************************************
 *

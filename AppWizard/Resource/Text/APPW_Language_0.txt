@@ -1,13 +1,21 @@
 Quantity
-Period
+Press period, ms
 Console
 SD_Card
 Start
-Reset
+Clear
 Standart
 Random
-Pattern
+Lock
 Select test
 Back
 LPC Latency Test
 Reset Board
+Trigger check
+Clear log
+x1000
+x10
+Press duration, ms
+Press to unlock
+LPC Latency Test
+

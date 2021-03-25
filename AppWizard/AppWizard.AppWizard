@@ -26,25 +26,43 @@
       Id=ID_RTEXT_10
       Id=ID_RTEXT_11
       Id=ID_RTEXT_12
+      Id=ID_RTEXT_13
+      Id=ID_RTEXT_14
+      Id=ID_RTEXT_15
+      Id=ID_RTEXT_16
+      Id=ID_RTEXT_17
+      Id=ID_RTEXT_18
+      Id=ID_RTEXT_19
     </Id>
     <Lang>
       Name=ENG
       Text=Quantity
-      Text=Period
+      Text=Press period, ms
       Text=Console
       Text=SD_Card
       Text=Start
-      Text=Reset
+      Text=Clear
       Text=Standart
       Text=Random
-      Text=Pattern
+      Text=Lock
       Text=Select test
       Text=Back
       Text=LPC Latency Test
       Text=Reset Board
+      Text=Trigger check
+      Text=Clear log
+      Text=x1000
+      Text=x10
+      Text=Press duration, ms
+      Text=Press to unlock
+      Text=LPC Latency Test
     </Lang>
   </Text>
   <Variables>
+    Item=4096,ID_VAR_QUANTITY,1
+    Item=4097,ID_VAR_PRESS_PERIOD,65
+    Item=4098,ID_VAR_PRESS_DURATION,1
+    Item=4099,ID_VAR_USB_DEVICE_CONFIGURED,0
   </Variables>
   <Objects>
     <Screen>
@@ -109,78 +127,10 @@
         Color=ff000000
       </SetColor>
     </Box>
-    <Text>
-      ParentId=2048
-      IdString=ID_TEXT_00
-      Id=2053
-      <Dispose>
-        xSize=170
-        ySize=30
-        <X0>
-          Mode=2
-          Off=154
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=35
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetColor>
-        Color=ffffff00
-      </SetColor>
-      <SetTextAlign>
-        Alignment=14
-        xOff=0
-        yOff=0
-      </SetTextAlign>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
-      <SetTextId>
-        Id=11
-      </SetTextId>
-    </Text>
-    <Button>
-      ParentId=2048
-      IdString=ID_BUTTON_00
-      Id=2050
-      <Dispose>
-        xSize=100
-        ySize=30
-        <X0>
-          Mode=2
-          Off=190
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=200
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetSbitmaps>
-        Index0=ButtonDarkUnpressed_100x30.png
-        Index1=ButtonDarkPressed_100x30.png
-      </SetSbitmaps>
-      <SetColors>
-        Color0=ffc0c0c0
-        Color3=       0
-      </SetColors>
-      <SetTextId>
-        Id=12
-      </SetTextId>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
-      <SetBkColors>
-      </SetBkColors>
-    </Button>
     <Image>
       ParentId=2048
       IdString=ID_IMAGE_00
-      Id=2051
+      Id=2050
       <Dispose>
         xSize=100
         ySize=100
@@ -191,16 +141,82 @@
         </X0>
         <Y0>
           Mode=2
-          Off=84
+          Off=80
           Id=0
         </Y0>
       </Dispose>
+      <SetTile>
+      </SetTile>
       <SetGIF>
         Image=corsairLogoCubeGif100x100_30fps.gif
       </SetGIF>
-      <SetTile>
-      </SetTile>
     </Image>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_UNLOCK
+      Id=2051
+      <Dispose>
+        xSize=480
+        ySize=272
+        <X0>
+          Mode=2
+          Off=0
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=0
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ff55aaff
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=18
+      </SetTextId>
+      <SetTextAlign>
+        Alignment=6
+        xOff=0
+        yOff=0
+      </SetTextAlign>
+    </Button>
+    <Text>
+      ParentId=2048
+      IdString=ID_TEXT_00
+      Id=2052
+      <Dispose>
+        xSize=150
+        ySize=32
+        <X0>
+          Mode=2
+          Off=165
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=20
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetColor>
+        Color=ffffff7f
+      </SetColor>
+      <SetTextAlign>
+        Alignment=14
+        xOff=0
+        yOff=0
+      </SetTextAlign>
+      <SetFont>
+        Font=NotoSans_24_Normal_EXT_AA4.xbf
+      </SetFont>
+      <SetTextId>
+        Id=19
+      </SetTextId>
+    </Text>
     <Screen>
       ParentId=0
       IdString=ID_SCREEN_CHOOSE_TEST
@@ -268,16 +284,16 @@
       IdString=ID_BUTTON_STANDART_TEST
       Id=2051
       <Dispose>
-        xSize=100
+        xSize=80
         ySize=30
         <X0>
           Mode=2
-          Off=190
+          Off=120
           Id=0
         </X0>
         <Y0>
           Mode=2
-          Off=80
+          Off=85
           Id=0
         </Y0>
       </Dispose>
@@ -298,19 +314,19 @@
     </Button>
     <Button>
       ParentId=2048
-      IdString=ID_BUTTON_RANDOM_TEST
-      Id=2052
+      IdString=ID_BUTTON_LOCK
+      Id=2053
       <Dispose>
-        xSize=100
+        xSize=80
         ySize=30
         <X0>
           Mode=2
-          Off=190
+          Off=120
           Id=0
         </X0>
         <Y0>
           Mode=2
-          Off=130
+          Off=160
           Id=0
         </Y0>
       </Dispose>
@@ -322,79 +338,85 @@
         Color0=ffc0c0c0
         Color3=       0
       </SetColors>
-      <SetTextId>
-        Id=7
-      </SetTextId>
       <SetFont>
         Font=NettoOT_16_Normal_EXT_AA4.xbf
       </SetFont>
-    </Button>
-    <Button>
-      ParentId=2048
-      IdString=ID_BUTTON_PATTERN_TEST
-      Id=2053
-      <Dispose>
-        xSize=100
-        ySize=30
-        <X0>
-          Mode=2
-          Off=190
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=180
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetSbitmaps>
-        Index0=ButtonDarkUnpressed_100x30.png
-        Index1=ButtonDarkPressed_100x30.png
-      </SetSbitmaps>
-      <SetColors>
-        Color0=ffc0c0c0
-        Color3=       0
-      </SetColors>
       <SetTextId>
         Id=8
       </SetTextId>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
     </Button>
-    <Text>
+    <Button>
       ParentId=2048
-      IdString=ID_TEXT_00
-      Id=2054
+      IdString=ID_BUTTON_BOARD_RESET
+      Id=2050
       <Dispose>
-        xSize=109
+        xSize=80
         ySize=30
         <X0>
           Mode=2
-          Off=186
+          Off=280
           Id=0
         </X0>
         <Y0>
           Mode=2
-          Off=30
+          Off=160
           Id=0
         </Y0>
       </Dispose>
-      <SetColor>
-        Color=ffffff00
-      </SetColor>
-      <SetTextAlign>
-        Alignment=14
-        xOff=0
-        yOff=0
-      </SetTextAlign>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffff557f
+        Color3=       0
+      </SetColors>
       <SetTextId>
-        Id=9
+        Id=12
       </SetTextId>
       <SetFont>
-        Font=Roboto_24_Normal_EXT_AA4.xbf
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
       </SetFont>
-    </Text>
+      <SetBkColors>
+      </SetBkColors>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_TRIGGER
+      Id=2055
+      <Dispose>
+        xSize=80
+        ySize=30
+        <X0>
+          Mode=2
+          Off=280
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=85
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color1=ff55ff7f
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=13
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+      <SetToggle>
+        Toggle=true
+      </SetToggle>
+    </Button>
     <Screen>
       ParentId=0
       IdString=ID_SCREEN_STANDART_TEST
@@ -457,246 +479,12 @@
         Color=ff000000
       </SetColor>
     </Box>
-    <Keyboard>
-      ParentId=2048
-      IdString=ID_KEYBOARD_00
-      Id=2053
-      <Dispose>
-        xSize=212
-        ySize=273
-        <X0>
-          Mode=2
-          Off=268
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=0
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetLayout>
-        Layout=SKEYBOARD_NUMPAD
-      </SetLayout>
-      <SetColors>
-        Color0=ffc0c3c0
-        Color3=       0
-      </SetColors>
-    </Keyboard>
-    <Button>
-      ParentId=2048
-      IdString=ID_BUTTON_CONSOLE
-      Id=2050
-      <Dispose>
-        xSize=60
-        ySize=30
-        <X0>
-          Mode=2
-          Off=20
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=15
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetSbitmaps>
-        Index0=ButtonDarkUnpressed_100x30.png
-        Index1=ButtonDarkPressed_100x30.png
-      </SetSbitmaps>
-      <SetColors>
-        Color0=ffc0c0c0
-        Color3=       0
-      </SetColors>
-      <SetTextId>
-        Id=2
-      </SetTextId>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
-    </Button>
-    <Button>
-      ParentId=2048
-      IdString=ID_BUTTON_SD_CARD
-      Id=2051
-      <Dispose>
-        xSize=60
-        ySize=30
-        <X0>
-          Mode=2
-          Off=100
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=15
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetSbitmaps>
-        Index0=ButtonDarkUnpressed_100x30.png
-        Index1=ButtonDarkPressed_100x30.png
-      </SetSbitmaps>
-      <SetColors>
-        Color0=ffc0c0c0
-        Color3=       0
-      </SetColors>
-      <SetTextId>
-        Id=3
-      </SetTextId>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
-    </Button>
-    <Edit>
-      ParentId=2048
-      IdString=ID_EDIT_00
-      Id=2055
-      <Dispose>
-        xSize=100
-        ySize=30
-        <X0>
-          Mode=2
-          Off=120
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=58
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetBkColors>
-        Color0=  ffffff
-        Color3=       0
-      </SetBkColors>
-      <SetColors>
-        Color0=ff55aaff
-        Color3=       0
-      </SetColors>
-      <SetAlign>
-        Alignment=14
-      </SetAlign>
-      <SetDecMode>
-        Len=0
-        Shift=0
-        Signed=0
-        Space=0
-      </SetDecMode>
-      <SetRange>
-        Min=1
-        Max=500000
-      </SetRange>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
-    </Edit>
-    <Slider>
-      ParentId=2048
-      IdString=ID_SLIDER_00
-      Id=2052
-      <Dispose>
-        xSize=200
-        ySize=20
-        <X0>
-          Mode=2
-          Off=20
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=100
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetSbitmaps>
-        Index0=SliderDarkBlueLeft_30x16.png
-        Index1=SliderDarkGrayRight_30x16.png
-        Index2=SliderDarkThumbUnpressed_22x22.png
-      </SetSbitmaps>
-      <SetRange>
-        Min=1
-        Max=500000
-      </SetRange>
-    </Slider>
-    <Edit>
-      ParentId=2048
-      IdString=ID_EDIT_01
-      Id=2056
-      <Dispose>
-        xSize=100
-        ySize=30
-        <X0>
-          Mode=2
-          Off=120
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=130
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetBkColors>
-        Color0=  ffffff
-        Color3=       0
-      </SetBkColors>
-      <SetColors>
-        Color0=ff55aaff
-        Color3=       0
-      </SetColors>
-      <SetAlign>
-        Alignment=14
-      </SetAlign>
-      <SetDecMode>
-        Len=0
-        Shift=0
-        Signed=0
-        Space=0
-      </SetDecMode>
-      <SetRange>
-        Min=65
-        Max=1000
-      </SetRange>
-      <SetFont>
-        Font=NettoOT_16_Normal_EXT_AA4.xbf
-      </SetFont>
-    </Edit>
-    <Slider>
-      ParentId=2048
-      IdString=ID_SLIDER_01
-      Id=2054
-      <Dispose>
-        xSize=200
-        ySize=20
-        <X0>
-          Mode=2
-          Off=20
-          Id=0
-        </X0>
-        <Y0>
-          Mode=2
-          Off=171
-          Id=0
-        </Y0>
-      </Dispose>
-      <SetSbitmaps>
-        Index0=SliderDarkBlueLeft_30x16.png
-        Index1=SliderDarkGrayRight_30x16.png
-        Index2=SliderDarkThumbUnpressed_22x22.png
-      </SetSbitmaps>
-      <SetRange>
-        Min=65
-        Max=1000
-      </SetRange>
-    </Slider>
     <Text>
       ParentId=2048
-      IdString=ID_TEXT_00
+      IdString=ID_TEXT_QUANTITY
       Id=2057
       <Dispose>
-        xSize=100
+        xSize=120
         ySize=30
         <X0>
           Mode=2
@@ -705,7 +493,7 @@
         </X0>
         <Y0>
           Mode=2
-          Off=58
+          Off=8
           Id=0
         </Y0>
       </Dispose>
@@ -724,12 +512,151 @@
         Font=NettoOT_16_Normal_EXT_AA4.xbf
       </SetFont>
     </Text>
-    <Text>
+    <Edit>
       ParentId=2048
-      IdString=ID_TEXT_01
-      Id=2058
+      IdString=ID_EDIT_QUANTITY
+      Id=2055
       <Dispose>
         xSize=100
+        ySize=30
+        <X0>
+          Mode=2
+          Off=139
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=8
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetBkColors>
+        Color0=  ffffff
+        Color3=       0
+      </SetBkColors>
+      <SetColors>
+        Color0=ff55aaff
+        Color3=       0
+      </SetColors>
+      <SetAlign>
+        Alignment=14
+      </SetAlign>
+      <SetRange>
+        Min=1
+        Max=10
+      </SetRange>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+      <SetDecMode>
+        Len=0
+        Shift=0
+        Signed=0
+        Space=0
+      </SetDecMode>
+    </Edit>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_X10_MULTIPLYER
+      Id=2063
+      <Dispose>
+        xSize=40
+        ySize=30
+        <X0>
+          Mode=2
+          Off=255
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=8
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color1=ff55ff00
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=16
+      </SetTextId>
+      <SetToggle>
+        Toggle=true
+      </SetToggle>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_X1000_MULTIPLYER
+      Id=2062
+      <Dispose>
+        xSize=40
+        ySize=30
+        <X0>
+          Mode=2
+          Off=315
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=8
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color1=ff55ff00
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=15
+      </SetTextId>
+      <SetToggle>
+        Toggle=true
+      </SetToggle>
+    </Button>
+    <Slider>
+      ParentId=2048
+      IdString=ID_SLIDER_QUANTITY
+      Id=2052
+      <Dispose>
+        xSize=440
+        ySize=20
+        <X0>
+          Mode=2
+          Off=20
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=46
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=SliderDarkBlueLeft_30x16.png
+        Index1=SliderDarkGrayRight_30x16.png
+        Index2=SliderDarkThumbUnpressed_22x22.png
+      </SetSbitmaps>
+      <SetRange>
+        Min=1
+        Max=10
+      </SetRange>
+    </Slider>
+    <Text>
+      ParentId=2048
+      IdString=ID_TEXT_PRESS_PERIOD
+      Id=2058
+      <Dispose>
+        xSize=120
         ySize=30
         <X0>
           Mode=2
@@ -738,7 +665,7 @@
         </X0>
         <Y0>
           Mode=2
-          Off=130
+          Off=75
           Id=0
         </Y0>
       </Dispose>
@@ -757,42 +684,184 @@
         Font=NettoOT_16_Normal_EXT_AA4.xbf
       </SetFont>
     </Text>
-    <Button>
+    <Edit>
       ParentId=2048
-      IdString=ID_BUTTON_START
-      Id=2059
+      IdString=ID_EDIT_PERIOD
+      Id=2056
       <Dispose>
-        xSize=60
+        xSize=100
         ySize=30
         <X0>
           Mode=2
-          Off=180
+          Off=140
           Id=0
         </X0>
         <Y0>
           Mode=2
-          Off=225
+          Off=75
           Id=0
         </Y0>
       </Dispose>
-      <SetSbitmaps>
-        Index0=ButtonDarkUnpressed_100x30.png
-        Index1=ButtonDarkPressed_100x30.png
-      </SetSbitmaps>
+      <SetBkColors>
+        Color0=  ffffff
+        Color3=       0
+      </SetBkColors>
       <SetColors>
         Color0=ff55aaff
         Color3=       0
       </SetColors>
+      <SetAlign>
+        Alignment=14
+      </SetAlign>
+      <SetDecMode>
+        Len=0
+        Shift=0
+        Signed=0
+        Space=0
+      </SetDecMode>
+      <SetRange>
+        Min=65
+        Max=1000
+      </SetRange>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Edit>
+    <Slider>
+      ParentId=2048
+      IdString=ID_SLIDER_PRESS_PERIOD
+      Id=2054
+      <Dispose>
+        xSize=440
+        ySize=20
+        <X0>
+          Mode=2
+          Off=20
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=116
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=SliderDarkBlueLeft_30x16.png
+        Index1=SliderDarkGrayRight_30x16.png
+        Index2=SliderDarkThumbUnpressed_22x22.png
+      </SetSbitmaps>
+      <SetRange>
+        Min=65
+        Max=1000
+      </SetRange>
+    </Slider>
+    <Text>
+      ParentId=2048
+      IdString=ID_TEXT_PRESS_DURATION
+      Id=2064
+      <Dispose>
+        xSize=120
+        ySize=30
+        <X0>
+          Mode=2
+          Off=20
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=142
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetColor>
+        Color=ffc0c0c0
+      </SetColor>
+      <SetTextAlign>
+        Alignment=14
+        xOff=0
+        yOff=0
+      </SetTextAlign>
       <SetTextId>
-        Id=4
+        Id=17
       </SetTextId>
       <SetFont>
         Font=NettoOT_16_Normal_EXT_AA4.xbf
       </SetFont>
-    </Button>
+    </Text>
+    <Edit>
+      ParentId=2048
+      IdString=ID_EDIT_PRESS_DURATION
+      Id=2065
+      <Dispose>
+        xSize=100
+        ySize=30
+        <X0>
+          Mode=2
+          Off=140
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=142
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetBkColors>
+        Color0=  ffffff
+        Color3=       0
+      </SetBkColors>
+      <SetColors>
+        Color0=ff55aaff
+        Color3=       0
+      </SetColors>
+      <SetAlign>
+        Alignment=14
+      </SetAlign>
+      <SetDecMode>
+        Len=0
+        Shift=0
+        Signed=0
+        Space=0
+      </SetDecMode>
+      <SetRange>
+        Min=1
+        Max=1000
+      </SetRange>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Edit>
+    <Slider>
+      ParentId=2048
+      IdString=ID_SLIDER_PRESS_DURATION
+      Id=2053
+      <Dispose>
+        xSize=440
+        ySize=22
+        <X0>
+          Mode=2
+          Off=20
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=181
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=SliderDarkBlueLeft_30x16.png
+        Index1=SliderDarkGrayRight_30x16.png
+        Index2=SliderDarkThumbUnpressed_22x22.png
+      </SetSbitmaps>
+      <SetRange>
+        Min=1
+        Max=1000
+      </SetRange>
+    </Slider>
     <Button>
       ParentId=2048
-      IdString=ID_BUTTON_RESET
+      IdString=ID_BUTTON_CLEAR
       Id=2060
       <Dispose>
         xSize=60
@@ -813,7 +882,7 @@
         Index1=ButtonDarkPressed_100x30.png
       </SetSbitmaps>
       <SetColors>
-        Color0=ffff0000
+        Color0=ffffffff
         Color3=       0
       </SetColors>
       <SetTextId>
@@ -856,28 +925,170 @@
         Font=NettoOT_16_Normal_EXT_AA4.xbf
       </SetFont>
     </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_CONSOLE
+      Id=2050
+      <Dispose>
+        xSize=60
+        ySize=30
+        <X0>
+          Mode=2
+          Off=179
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=225
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color1=ff55ff00
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=2
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+      <SetToggle>
+        Toggle=true
+      </SetToggle>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_SD_CARD
+      Id=2051
+      <Dispose>
+        xSize=60
+        ySize=30
+        <X0>
+          Mode=2
+          Off=255
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=225
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ffc0c0c0
+        Color1=ff55ff7f
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=3
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+      <SetToggle>
+        Toggle=true
+      </SetToggle>
+    </Button>
+    <Button>
+      ParentId=2048
+      IdString=ID_BUTTON_START
+      Id=2059
+      <Dispose>
+        xSize=60
+        ySize=30
+        <X0>
+          Mode=2
+          Off=332
+          Id=0
+        </X0>
+        <Y0>
+          Mode=2
+          Off=225
+          Id=0
+        </Y0>
+      </Dispose>
+      <SetSbitmaps>
+        Index0=ButtonDarkUnpressed_100x30.png
+        Index1=ButtonDarkPressed_100x30.png
+      </SetSbitmaps>
+      <SetColors>
+        Color0=ff55aaff
+        Color3=       0
+      </SetColors>
+      <SetTextId>
+        Id=4
+      </SetTextId>
+      <SetFont>
+        Font=NettoOT_16_Normal_EXT_AA4.xbf
+      </SetFont>
+    </Button>
   </Objects>
   <Interactions>
-    <SHIFTSCREEN>
+    <SHOWSCREEN>
+      RootId=6146
+      IdSrc=ID_BUTTON_UNLOCK
+      NCode=WM_NOTIFICATION_CLICKED
+      Slot=ID_SCREEN_SCREEN_SAVER__ID_BUTTON_UNLOCK__WM_NOTIFICATION_CLICKED
+      Flags=0
+      <Para>
+        RootId=6145
+      </Para>
+    </SHOWSCREEN>
+    <SHOWSCREEN>
       RootId=6145
       IdSrc=ID_BUTTON_STANDART_TEST
       NCode=WM_NOTIFICATION_CLICKED
       Slot=ID_SCREEN_CHOOSE_TEST__ID_BUTTON_STANDART_TEST__WM_NOTIFICATION_CLICKED
       Flags=0
+      Condition=A,1,IS_VAR,ID_VAR_USB_DEVICE_CONFIGURED,==,IS_VAL,1
       <Para>
-        RootId=6144
-        Edge=APPW_EDGE_LEFT
-        Ease=ANIM_LINEAR
-        Period=100
-        Disclose=1
+        RootId=6146
       </Para>
-    </SHIFTSCREEN>
+    </SHOWSCREEN>
+    <NULL>
+      RootId=6145
+      IdSrc=ID_BUTTON_BOARD_RESET
+      NCode=WM_NOTIFICATION_RELEASED
+      Slot=ID_SCREEN_CHOOSE_TEST__ID_BUTTON_BOARD_RESET__WM_NOTIFICATION_CLICKED
+      Flags=0
+    </NULL>
+    <SHOWSCREEN>
+      RootId=6145
+      IdSrc=ID_BUTTON_LOCK
+      NCode=WM_NOTIFICATION_CLICKED
+      Slot=ID_SCREEN_CHOOSE_TEST__ID_BUTTON_LOCK__WM_NOTIFICATION_CLICKED
+      Flags=0
+      <Para>
+        RootId=6146
+      </Para>
+    </SHOWSCREEN>
     <SETVALUE>
       RootId=6144
-      IdSrc=ID_SLIDER_00
+      IdSrc=ID_SLIDER_QUANTITY
       NCode=WM_NOTIFICATION_VALUE_CHANGED
-      IdDst=ID_EDIT_00
-      Slot=ID_SCREEN_00__ID_SLIDER_00__WM_NOTIFICATION_VALUE_CHANGED__ID_TEXT_00__APPW_JOB_SETVALUE
+      IdDst=ID_VAR_QUANTITY
+      Slot=ID_SCREEN_STANDART_TEST__ID_SLIDER_QUANTITY__WM_NOTIFICATION_VALUE_CHANGED
+      Flags=65537
+      <Para>
+        Value=4096
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_SLIDER_QUANTITY
+      NCode=WM_NOTIFICATION_VALUE_CHANGED
+      IdDst=ID_EDIT_QUANTITY
+      Slot=ID_SCREEN_STANDART_TEST__WM_NOTIFICATION_VALUE_CHANGED__ID_TEXT_QUANTITY__APPW_JOB_SETVALUE
       Flags=0
       <Para>
         Value=0
@@ -885,16 +1096,100 @@
     </SETVALUE>
     <SETVALUE>
       RootId=6144
-      IdSrc=ID_SLIDER_01
+      IdSrc=ID_SLIDER_PRESS_PERIOD
       NCode=WM_NOTIFICATION_VALUE_CHANGED
-      IdDst=ID_EDIT_01
+      IdDst=ID_VAR_PRESS_PERIOD
+      Slot=ID_SCREEN_STANDART_TEST__ID_SLIDER_PRESS_PERIOD__WM_NOTIFICATION_VALUE_CHANGED__ID_TEXT_PRESS_PERIOD__APPW_JOB_SETVALUE
+      Flags=65537
+      <Para>
+        Value=4097
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_SLIDER_PRESS_PERIOD
+      NCode=WM_NOTIFICATION_VALUE_CHANGED
+      IdDst=ID_EDIT_PERIOD
       Slot=ID_SCREEN_00__ID_SLIDER_01__WM_NOTIFICATION_VALUE_CHANGED__ID_TEXT_01__APPW_JOB_SETVALUE
       Flags=0
       <Para>
         Value=0
       </Para>
     </SETVALUE>
-    <SHIFTSCREEN>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_SLIDER_PRESS_DURATION
+      NCode=WM_NOTIFICATION_VALUE_CHANGED
+      IdDst=ID_VAR_PRESS_DURATION
+      Slot=ID_SCREEN_STANDART_TEST__ID_SLIDER_PRESS_DURATION__WM_NOTIFICATION_VALUE_CHANGED
+      Flags=0
+      Condition=A,1,IS_OBJ,ID_SLIDER_PRESS_DURATION,<,IS_VAR,ID_VAR_PRESS_PERIOD
+      <Para>
+        Value=0
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_SLIDER_PRESS_DURATION
+      NCode=WM_NOTIFICATION_VALUE_CHANGED
+      IdDst=ID_EDIT_PRESS_DURATION
+      Slot=ID_SCREEN_STANDART_TEST__ID_SLIDER_PRESS_DURATION__WM_NOTIFICATION_VALUE_CHANGED__ID_EDIT_RELEASE_DELAY__APPW_JOB_SETVALUE
+      Flags=0
+      Condition=A,1,IS_OBJ,ID_SLIDER_PRESS_DURATION,<,IS_OBJ,ID_SLIDER_PRESS_PERIOD
+      <Para>
+        Value=0
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_BUTTON_CLEAR
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_SLIDER_QUANTITY
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_CLEAR__WM_NOTIFICATION_CLICKED__ID_EDIT_QUANTITY__APPW_JOB_SETVALUE
+      Flags=0
+      <Para>
+        Value=1
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_BUTTON_CLEAR
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_SLIDER_PRESS_PERIOD
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_CLEAR__WM_NOTIFICATION_CLICKED__ID_EDIT_PERIOD__APPW_JOB_SETVALUE
+      Flags=0
+      <Para>
+        Value=65
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6144
+      IdSrc=ID_BUTTON_CLEAR
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_SLIDER_PRESS_DURATION
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_CLEAR__WM_NOTIFICATION_CLICKED__ID_EDIT_PRESS_DURATION__APPW_JOB_SETVALUE
+      Flags=0
+      <Para>
+        Value=1
+      </Para>
+    </SETVALUE>
+    <CLEAR>
+      RootId=6144
+      IdSrc=ID_BUTTON_CLEAR
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_BUTTON_X10_MULTIPLYER
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_CLEAR__WM_NOTIFICATION_CLICKED__ID_BUTTON_X10_MULTIPLYER__APPW_JOB_CLEAR
+      Flags=0
+    </CLEAR>
+    <CLEAR>
+      RootId=6144
+      IdSrc=ID_BUTTON_CLEAR
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_BUTTON_X1000_MULTIPLYER
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_CLEAR__WM_NOTIFICATION_CLICKED__ID_BUTTON_X1000_MULTIPLYER__APPW_JOB_CLEAR
+      Flags=0
+    </CLEAR>
+    <SHOWSCREEN>
       RootId=6144
       IdSrc=ID_BUTTON_BACK
       NCode=WM_NOTIFICATION_CLICKED
@@ -902,11 +1197,31 @@
       Flags=0
       <Para>
         RootId=6145
-        Edge=APPW_EDGE_RIGHT
-        Ease=ANIM_LINEAR
-        Period=100
-        Disclose=1
       </Para>
-    </SHIFTSCREEN>
+    </SHOWSCREEN>
+    <TOGGLE>
+      RootId=6144
+      IdSrc=ID_BUTTON_BACK
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_BUTTON_CLEAR
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_BACK__WM_NOTIFICATION_CLICKED__ID_BUTTON_CLEAR__APPW_JOB_TOGGLE
+      Flags=0
+    </TOGGLE>
+    <CLEAR>
+      RootId=6144
+      IdSrc=ID_BUTTON_CONSOLE
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_BUTTON_SD_CARD
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_CONSOLE__WM_NOTIFICATION_CLICKED__ID_BUTTON_SD_CARD__APPW_JOB_TOGGLE
+      Flags=0
+    </CLEAR>
+    <CLEAR>
+      RootId=6144
+      IdSrc=ID_BUTTON_SD_CARD
+      NCode=WM_NOTIFICATION_CLICKED
+      IdDst=ID_BUTTON_CONSOLE
+      Slot=ID_SCREEN_STANDART_TEST__ID_BUTTON_SD_CARD__WM_NOTIFICATION_CLICKED__ID_BUTTON_CONSOLE__APPW_JOB_TOGGLE
+      Flags=0
+    </CLEAR>
   </Interactions>
 </Project>

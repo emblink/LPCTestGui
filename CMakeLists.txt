@@ -95,27 +95,29 @@ include_directories(
 
 # find -name '*.c'
 set(APP_SOURCE_FILES
-    AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
-    AppWizard/Resource/Font/Roboto_24_Normal_EXT_AA4.c
-    AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
-    AppWizard/Resource/Image/ButtonDarkUnpressed_100x30.c
+    AppWizard/Source/APPW_MainTask.c
+    AppWizard/Source/Generated/Resource.h
+    AppWizard/Source/Generated/Resource.c
+    AppWizard/Source/Generated/APPWConf.c
+    AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.h
+    AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.h
+    AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.h
+    AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.c
+    AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.c
+    AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.c
+    AppWizard/Source/CustomCode/ID_SCREEN_SCREENSAVER_Slots.c
+    AppWizard/Source/CustomCode/ID_SCREEN_CHOOSE_TEST_Slots.c
+    AppWizard/Source/CustomCode/ID_SCREEN_STANDART_TEST_Slots.c
     AppWizard/Resource/Image/corsairLogoCubeGif100x100_30fps.c
+    AppWizard/Resource/Image/ButtonDarkUnpressed_100x30.c
+    AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
     AppWizard/Resource/Image/SliderDarkBlueLeft_30x16.c
     AppWizard/Resource/Image/SliderDarkGrayRight_30x16.c
     AppWizard/Resource/Image/SliderDarkThumbUnpressed_22x22.c
-    AppWizard/Resource/Keyboard/SKEYBOARD_NUMPAD.c
+    AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
+    AppWizard/Resource/Font/NotoSans_24_Normal_EXT_AA4.c
     AppWizard/Resource/Text/APPW_Language_0.c
     AppWizard/Resource/Text/APPW_Pattern.c
-    AppWizard/Source/APPW_MainTask.c
-    AppWizard/Source/CustomCode/Application.c
-    AppWizard/Source/CustomCode/ID_SCREEN_CHOOSE_TEST_Slots.c
-    AppWizard/Source/CustomCode/ID_SCREEN_SCREENSAVER_Slots.c
-    AppWizard/Source/CustomCode/ID_SCREEN_STANDART_TEST_Slots.c
-    AppWizard/Source/Generated/APPWConf.c
-    AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.c
-    AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.c
-    AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.c
-    AppWizard/Source/Generated/Resource.c
 
     ./board/board.c
     ./board/clock_config.c

@@ -25,15 +25,17 @@ Purpose     : Generated file do NOT edit!
 */
 #define ID_BOX_00               (GUI_ID_USER + 0)
 #define ID_BUTTON_STANDART_TEST (GUI_ID_USER + 1)
-#define ID_BUTTON_RANDOM_TEST   (GUI_ID_USER + 2)
-#define ID_BUTTON_PATTERN_TEST  (GUI_ID_USER + 3)
-#define ID_TEXT_00              (GUI_ID_USER + 4)
+#define ID_BUTTON_LOCK          (GUI_ID_USER + 2)
+#define ID_BUTTON_BOARD_RESET   (GUI_ID_USER + 3)
+#define ID_BUTTON_TRIGGER       (GUI_ID_USER + 4)
 
 /*********************************************************************
 *
 *       Slots
 */
 void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_STANDART_TEST__WM_NOTIFICATION_CLICKED(APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
+void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_BOARD_RESET__WM_NOTIFICATION_CLICKED  (APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
+void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_LOCK__WM_NOTIFICATION_CLICKED         (APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
 
 /*********************************************************************
 *

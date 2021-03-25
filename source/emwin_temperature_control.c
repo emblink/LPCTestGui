@@ -778,11 +778,19 @@ void Init_CTIMER(void)
 //     }
 // }
 
+void onBoardReset(void)
+{
+    NVIC_SystemReset();
+}
+
 /*!
  * @brief Main function
  */
 int main(void)
 {
+    /* Delay at the beginning of the main, you know...
+    nothing works without it, fixes display initialization */
+    for (volatile uint32_t i = 0; i < 1000000; i++);
     /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
@@ -805,25 +813,21 @@ int main(void)
     BOARD_InitPWM();
     Init_CTIMER();
 
-    MainTask();
-    // GUI_Init();
-    // WM_MULTIBUF_Enable(1);
-    // GUI_UC_SetEncodeUTF8();
-    // //
-    // // Create application window...
-    // //
-    // GUI_CreateDialogBox(_aDialogCreate, GUI_COUNTOF(_aDialogCreate), _cbDialog, WM_HBKWIN, 0, 0);
-    // //
-    // // ...and keep it alive
-    // //
-    // WM_Exec();
+    // code from MainTask();
+    // Setup configuration dependent pointers
+    APPW_X_Setup();
+    //
+    // Initialize AppWizard
+    //
+    APPW_Init(APPW_PROJECT_PATH);
+    //
+    // Create initial screen...
+    //
+    APPW_CreateRoot(APPW_INITIAL_SCREEN, WM_HBKWIN);
 
-    // while (1)
-    // {
-    //     /* Poll touch controller for update */
-    //     if (BOARD_Touch_Poll())
-    //     {
-    //         GUI_Delay(5);
-    //     }
-    // }
+    while (1)
+    {
+        APPW_Exec();
+        GUI_Delay(5);
+    }
 }

@@ -50,42 +50,42 @@ static APPW_CREATE_ITEM _aCreate[] = {
   },
   { WM_OBJECT_BUTTON_Create,
     ID_BUTTON_STANDART_TEST, ID_SCREEN_CHOOSE_TEST,
-    { { { DISPOSE_MODE_REL_PARENT, 190, 0, 0 },
-        { DISPOSE_MODE_REL_PARENT, 80, 0, 0 },
+    { { { DISPOSE_MODE_REL_PARENT, 120, 0, 0 },
+        { DISPOSE_MODE_REL_PARENT, 85, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
       },
-      100, 30, 0, 0, 0, 0
+      80, 30, 0, 0, 0, 0
     },
   },
   { WM_OBJECT_BUTTON_Create,
-    ID_BUTTON_RANDOM_TEST, ID_SCREEN_CHOOSE_TEST,
-    { { { DISPOSE_MODE_REL_PARENT, 190, 0, 0 },
-        { DISPOSE_MODE_REL_PARENT, 130, 0, 0 },
+    ID_BUTTON_LOCK, ID_SCREEN_CHOOSE_TEST,
+    { { { DISPOSE_MODE_REL_PARENT, 120, 0, 0 },
+        { DISPOSE_MODE_REL_PARENT, 160, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
       },
-      100, 30, 0, 0, 0, 0
+      80, 30, 0, 0, 0, 0
     },
   },
   { WM_OBJECT_BUTTON_Create,
-    ID_BUTTON_PATTERN_TEST, ID_SCREEN_CHOOSE_TEST,
-    { { { DISPOSE_MODE_REL_PARENT, 190, 0, 0 },
-        { DISPOSE_MODE_REL_PARENT, 180, 0, 0 },
+    ID_BUTTON_BOARD_RESET, ID_SCREEN_CHOOSE_TEST,
+    { { { DISPOSE_MODE_REL_PARENT, 280, 0, 0 },
+        { DISPOSE_MODE_REL_PARENT, 160, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
       },
-      100, 30, 0, 0, 0, 0
+      80, 30, 0, 0, 0, 0
     },
   },
-  { WM_OBJECT_TEXT_Create,
-    ID_TEXT_00, ID_SCREEN_CHOOSE_TEST,
-    { { { DISPOSE_MODE_REL_PARENT, 186, 0, 0 },
-        { DISPOSE_MODE_REL_PARENT, 30, 0, 0 },
+  { WM_OBJECT_BUTTON_Create,
+    ID_BUTTON_TRIGGER, ID_SCREEN_CHOOSE_TEST,
+    { { { DISPOSE_MODE_REL_PARENT, 280, 0, 0 },
+        { DISPOSE_MODE_REL_PARENT, 85, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
       },
-      109, 30, 0, 0, 0, 0
+      80, 30, 0, 0, 0, 0
     },
   },
 };
@@ -103,39 +103,60 @@ static const APPW_SETUP_ITEM _aSetup[] = {
                                                            ARG_V(GUI_INVALID_COLOR) } },
   { ID_BUTTON_STANDART_TEST, APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_6) } },
   { ID_BUTTON_STANDART_TEST, APPW_SET_PROP_FONT,         { ARG_VP(0, acNettoOT_16_Normal_EXT_AA4) } },
-  { ID_BUTTON_RANDOM_TEST,   APPW_SET_PROP_SBITMAPS,     { ARG_VP(0, acButtonDarkUnpressed_100x30),
+  { ID_BUTTON_LOCK,          APPW_SET_PROP_SBITMAPS,     { ARG_VP(0, acButtonDarkUnpressed_100x30),
                                                            ARG_VP(0, acButtonDarkPressed_100x30), } },
-  { ID_BUTTON_RANDOM_TEST,   APPW_SET_PROP_COLORS,       { ARG_V(0xffc0c0c0),
+  { ID_BUTTON_LOCK,          APPW_SET_PROP_COLORS,       { ARG_V(0xffc0c0c0),
                                                            ARG_V(GUI_INVALID_COLOR),
                                                            ARG_V(GUI_INVALID_COLOR) } },
-  { ID_BUTTON_RANDOM_TEST,   APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_7) } },
-  { ID_BUTTON_RANDOM_TEST,   APPW_SET_PROP_FONT,         { ARG_VP(0, acNettoOT_16_Normal_EXT_AA4) } },
-  { ID_BUTTON_PATTERN_TEST,  APPW_SET_PROP_SBITMAPS,     { ARG_VP(0, acButtonDarkUnpressed_100x30),
+  { ID_BUTTON_LOCK,          APPW_SET_PROP_FONT,         { ARG_VP(0, acNettoOT_16_Normal_EXT_AA4) } },
+  { ID_BUTTON_LOCK,          APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_8) } },
+  { ID_BUTTON_BOARD_RESET,   APPW_SET_PROP_SBITMAPS,     { ARG_VP(0, acButtonDarkUnpressed_100x30),
                                                            ARG_VP(0, acButtonDarkPressed_100x30), } },
-  { ID_BUTTON_PATTERN_TEST,  APPW_SET_PROP_COLORS,       { ARG_V(0xffc0c0c0),
+  { ID_BUTTON_BOARD_RESET,   APPW_SET_PROP_COLORS,       { ARG_V(0xffff557f),
                                                            ARG_V(GUI_INVALID_COLOR),
                                                            ARG_V(GUI_INVALID_COLOR) } },
-  { ID_BUTTON_PATTERN_TEST,  APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_8) } },
-  { ID_BUTTON_PATTERN_TEST,  APPW_SET_PROP_FONT,         { ARG_VP(0, acNettoOT_16_Normal_EXT_AA4) } },
-  { ID_TEXT_00,              APPW_SET_PROP_COLOR,        { ARG_V(GUI_YELLOW) } },
-  { ID_TEXT_00,              APPW_SET_PROP_ALIGNTEXT,    { ARG_V(GUI_ALIGN_HCENTER | GUI_ALIGN_VCENTER),
-                                                           ARG_V(0),
-                                                           ARG_V(0) } },
-  { ID_TEXT_00,              APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_9) } },
-  { ID_TEXT_00,              APPW_SET_PROP_FONT,         { ARG_VP(0, acRoboto_24_Normal_EXT_AA4) } },
+  { ID_BUTTON_BOARD_RESET,   APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_12) } },
+  { ID_BUTTON_BOARD_RESET,   APPW_SET_PROP_FONT,         { ARG_VP(0, acNettoOT_16_Normal_EXT_AA4) } },
+  { ID_BUTTON_BOARD_RESET,   APPW_SET_PROP_BKCOLORS,     { ARG_V(GUI_INVALID_COLOR),
+                                                           ARG_V(GUI_INVALID_COLOR),
+                                                           ARG_V(GUI_INVALID_COLOR) } },
+  { ID_BUTTON_TRIGGER,       APPW_SET_PROP_SBITMAPS,     { ARG_VP(0, acButtonDarkUnpressed_100x30),
+                                                           ARG_VP(0, acButtonDarkPressed_100x30), } },
+  { ID_BUTTON_TRIGGER,       APPW_SET_PROP_COLORS,       { ARG_V(0xffc0c0c0),
+                                                           ARG_V(0xff55ff7f),
+                                                           ARG_V(GUI_INVALID_COLOR) } },
+  { ID_BUTTON_TRIGGER,       APPW_SET_PROP_TEXTID,       { ARG_V(ID_RTEXT_13) } },
+  { ID_BUTTON_TRIGGER,       APPW_SET_PROP_FONT,         { ARG_VP(0, acNettoOT_16_Normal_EXT_AA4) } },
+  { ID_BUTTON_TRIGGER,       APPW_SET_PROP_TOGGLE,       { ARG_V(0) } },
 };
+
+/*********************************************************************
+*
+*       Comparison(s)
+*/
+static APPW_COND_COMP _aComparison_00[] = {
+  { { { APPW_IS_VAR, ID_VAR_USB_DEVICE_CONFIGURED }, { APPW_IS_VAL, 1 } }, APPW__CompareIsEqual },
+};
+
+/*********************************************************************
+*
+*       Condition(s)
+*/
+static const APPW_COND _Condition_00 = { "A", _aComparison_00, GUI_COUNTOF(_aComparison_00) };
 
 /*********************************************************************
 *
 *       _aAction
 */
 static const APPW_ACTION_ITEM _aAction[] = {
-  { ID_BUTTON_STANDART_TEST, WM_NOTIFICATION_CLICKED,          0,                       APPW_JOB_SHIFTSCREEN,    ID_SCREEN_CHOOSE_TEST__ID_BUTTON_STANDART_TEST__WM_NOTIFICATION_CLICKED,
-    { ARG_V(ID_SCREEN_STANDART_TEST),
-      ARG_V(APPW_EDGE_LEFT),
-      ARG_F((void (*)(void))ANIM_LINEAR),
-      ARG_V(100),
-      ARG_V(1),
+  { ID_BUTTON_STANDART_TEST, WM_NOTIFICATION_CLICKED,          0,                       APPW_JOB_SHOWSCREEN,     ID_SCREEN_CHOOSE_TEST__ID_BUTTON_STANDART_TEST__WM_NOTIFICATION_CLICKED,
+    { ARG_V(ID_SCREEN_SCREENSAVER),
+    }, 0, &_Condition_00
+  },
+  { ID_BUTTON_BOARD_RESET,   WM_NOTIFICATION_RELEASED,         0,                       APPW_JOB_NULL,           ID_SCREEN_CHOOSE_TEST__ID_BUTTON_BOARD_RESET__WM_NOTIFICATION_CLICKED,
+  },
+  { ID_BUTTON_LOCK,          WM_NOTIFICATION_CLICKED,          0,                       APPW_JOB_SHOWSCREEN,     ID_SCREEN_CHOOSE_TEST__ID_BUTTON_LOCK__WM_NOTIFICATION_CLICKED,
+    { ARG_V(ID_SCREEN_SCREENSAVER),
     }, 0, NULL
   },
 };
