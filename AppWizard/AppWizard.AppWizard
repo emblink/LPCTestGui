@@ -132,24 +132,24 @@
       IdString=ID_IMAGE_00
       Id=2050
       <Dispose>
-        xSize=100
-        ySize=100
+        xSize=120
+        ySize=120
         <X0>
           Mode=2
-          Off=190
+          Off=180
           Id=0
         </X0>
         <Y0>
           Mode=2
-          Off=80
+          Off=76
           Id=0
         </Y0>
       </Dispose>
       <SetTile>
       </SetTile>
-      <SetGIF>
-        Image=corsairLogoCubeGif100x100_30fps.gif
-      </SetGIF>
+      <SetSbitmap>
+        Image=gif_orig.png
+      </SetSbitmap>
     </Image>
     <Button>
       ParentId=2048
@@ -1052,7 +1052,7 @@
       Flags=0
       Condition=A,1,IS_VAR,ID_VAR_USB_DEVICE_CONFIGURED,==,IS_VAL,1
       <Para>
-        RootId=6146
+        RootId=6144
       </Para>
     </SHOWSCREEN>
     <NULL>

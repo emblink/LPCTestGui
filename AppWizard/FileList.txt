@@ -17,6 +17,7 @@ D:/__Developex__Work__/GUI/AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
 D:/__Developex__Work__/GUI/AppWizard/Resource/Image/SliderDarkBlueLeft_30x16.c
 D:/__Developex__Work__/GUI/AppWizard/Resource/Image/SliderDarkGrayRight_30x16.c
 D:/__Developex__Work__/GUI/AppWizard/Resource/Image/SliderDarkThumbUnpressed_22x22.c
+D:/__Developex__Work__/GUI/AppWizard/Resource/Image/gif_orig.c
 D:/__Developex__Work__/GUI/AppWizard/Resource/Font/NotoSans_24_Normal_EXT_AA4.c
 D:/__Developex__Work__/GUI/AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
 D:/__Developex__Work__/GUI/AppWizard/Resource/Text/APPW_Language_0.c

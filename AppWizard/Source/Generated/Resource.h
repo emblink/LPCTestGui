@@ -64,6 +64,7 @@ extern const unsigned char acButtonDarkPressed_100x30[];
 extern const unsigned char acSliderDarkBlueLeft_30x16[];
 extern const unsigned char acSliderDarkGrayRight_30x16[];
 extern const unsigned char acSliderDarkThumbUnpressed_22x22[];
+extern const unsigned char acgif_orig[];
 
 /*********************************************************************
 *

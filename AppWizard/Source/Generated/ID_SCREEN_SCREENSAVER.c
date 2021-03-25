@@ -50,12 +50,12 @@ static APPW_CREATE_ITEM _aCreate[] = {
   },
   { WM_OBJECT_IMAGE_Create,
     ID_IMAGE_00, ID_SCREEN_SCREENSAVER,
-    { { { DISPOSE_MODE_REL_PARENT, 190, 0, 0 },
-        { DISPOSE_MODE_REL_PARENT, 80, 0, 0 },
+    { { { DISPOSE_MODE_REL_PARENT, 180, 0, 0 },
+        { DISPOSE_MODE_REL_PARENT, 76, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
         { DISPOSE_MODE_NULL, 0, 0, 0 },
       },
-      100, 100, 0, 0, 0, 0
+      120, 120, 0, 0, 0, 0
     },
   },
   { WM_OBJECT_BUTTON_Create,
@@ -87,8 +87,8 @@ static APPW_CREATE_ITEM _aCreate[] = {
 static const APPW_SETUP_ITEM _aSetup[] = {
   { ID_BOX_00,             APPW_SET_PROP_COLOR,        { ARG_V(GUI_BLACK) } },
   { ID_IMAGE_00,           APPW_SET_PROP_TILE,         { ARG_V(0) } },
-  { ID_IMAGE_00,           APPW_SET_PROP_GIF,          { ARG_VP(0, accorsairLogoCubeGif100x100_30fps),
-                                                         ARG_V(46936), } },
+  { ID_IMAGE_00,           APPW_SET_PROP_SBITMAP,      { ARG_VP(0, acgif_orig),
+                                                         ARG_V(20920), } },
   { ID_BUTTON_UNLOCK,      APPW_SET_PROP_SBITMAPS,     { ARG_VP(0, NULL), } },
   { ID_BUTTON_UNLOCK,      APPW_SET_PROP_COLORS,       { ARG_V(0xff55aaff),
                                                          ARG_V(GUI_INVALID_COLOR),

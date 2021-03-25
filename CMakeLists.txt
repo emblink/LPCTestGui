@@ -22,11 +22,15 @@ add_definitions(
     -D__USE_CMSIS
     -DSERIAL_PORT_TYPE_UART=1
     -DSDK_DEBUGCONSOLE=1
+    -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING
     -DCR_INTEGER_PRINTF
     -DPRINTF_FLOAT_ENABLE=0
     -D__MCUXPRESSO
-    -DDEBUG
     -D__NEWLIB__
+    -DUSB_STACK_BM
+    -DUSB_STACK_USE_DEDICATED_RAM=1
+    -DFSL_OSA_BM_TASK_ENABLE=0
+    -DFSL_OSA_BM_TIMER_CONFIG=0
 )
 
 add_compile_options(
@@ -62,10 +66,10 @@ add_link_options(
 
 # find . -type d
 include_directories(
+    ./AppWizard
     ./AppWizard/Resource
     ./AppWizard/Resource/Font
     ./AppWizard/Resource/Image
-    ./AppWizard/Resource/Keyboard
     ./AppWizard/Resource/Text
     ./AppWizard/Source
     ./AppWizard/Source/CustomCode
@@ -74,56 +78,75 @@ include_directories(
     ./CMSIS
     ./component
     ./component/lists
+    ./component/osa
     ./component/serial_manager
     ./component/uart
     ./device
+    ./doc
     ./drivers
+    ./emwin
     ./emwin/emWin_Config
     ./emwin/emWin_header
+    ./emwin/emWin_library
+    ./emwin/emWin_library/ARMGCC
+    ./emwin/emWin_library/IAR
+    ./emwin/emWin_library/Keil
+    ./emwin/emWin_library/MCUXpresso
+    ./fatfs
+    ./fatfs/source
+    ./fatfs/source/fsl_ram_disk
+    ./fatfs/source/fsl_sd_disk
     ./libs
-    ./linker
-    ./Resources
+    ./linkerScript
+    ./scripts
+    ./sdmmc
+    ./sdmmc/inc
+    ./sdmmc/port
+    ./sdmmc/src
     ./source
     ./startup
-    ./touchpanel
-    ./utilities
-    ./tools/redlib/include
-    ./tools/redlib/include/sys
+    ./tools
+    ./tools/features
     ./tools/features/include
     ./tools/features/include/NXP
+    ./touchpanel
+    ./usb
+    ./usb/host
+    ./usb/host/class
+    ./usb/include
+    ./utilities
 )
 
 # find -name '*.c'
 set(APP_SOURCE_FILES
-    AppWizard/Source/APPW_MainTask.c
-    AppWizard/Source/Generated/Resource.h
-    AppWizard/Source/Generated/Resource.c
-    AppWizard/Source/Generated/APPWConf.c
-    AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.h
-    AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.h
-    AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.h
-    AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.c
-    AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.c
-    AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.c
-    AppWizard/Source/CustomCode/ID_SCREEN_SCREENSAVER_Slots.c
-    AppWizard/Source/CustomCode/ID_SCREEN_CHOOSE_TEST_Slots.c
-    AppWizard/Source/CustomCode/ID_SCREEN_STANDART_TEST_Slots.c
-    AppWizard/Resource/Image/corsairLogoCubeGif100x100_30fps.c
-    AppWizard/Resource/Image/ButtonDarkUnpressed_100x30.c
-    AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
-    AppWizard/Resource/Image/SliderDarkBlueLeft_30x16.c
-    AppWizard/Resource/Image/SliderDarkGrayRight_30x16.c
-    AppWizard/Resource/Image/SliderDarkThumbUnpressed_22x22.c
-    AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
-    AppWizard/Resource/Font/NotoSans_24_Normal_EXT_AA4.c
-    AppWizard/Resource/Text/APPW_Language_0.c
-    AppWizard/Resource/Text/APPW_Pattern.c
-
+    ./AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
+    ./AppWizard/Resource/Font/NotoSans_24_Normal_EXT_AA4.c
+    ./AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
+    ./AppWizard/Resource/Image/ButtonDarkUnpressed_100x30.c
+    ./AppWizard/Resource/Image/corsairLogoCubeGif100x100_30fps.c
+    ./AppWizard/Resource/Image/SliderDarkBlueLeft_30x16.c
+    ./AppWizard/Resource/Image/SliderDarkGrayRight_30x16.c
+    ./AppWizard/Resource/Image/SliderDarkThumbUnpressed_22x22.c
+    ./AppWizard/Resource/Text/APPW_Language_0.c
+    ./AppWizard/Resource/Text/APPW_Pattern.c
+    ./AppWizard/Source/APPW_MainTask.c
+    ./AppWizard/Source/CustomCode/Application.c
+    ./AppWizard/Source/CustomCode/ID_SCREEN_CHOOSE_TEST_Slots.c
+    ./AppWizard/Source/CustomCode/ID_SCREEN_SCREENSAVER_Slots.c
+    ./AppWizard/Source/CustomCode/ID_SCREEN_STANDART_TEST_Slots.c
+    ./AppWizard/Source/Generated/APPWConf.c
+    ./AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.c
+    ./AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.c
+    ./AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.c
+    ./AppWizard/Source/Generated/Resource.c
+    ./AppWizard/Resource/Image/gif_orig.c
     ./board/board.c
     ./board/clock_config.c
     ./board/emwin_support.c
     ./board/pin_mux.c
+    ./board/sdcard_pin_mux.c
     ./component/lists/generic_list.c
+    ./component/osa/fsl_os_abstraction_bm.c
     ./component/serial_manager/serial_manager.c
     ./component/serial_manager/serial_port_uart.c
     ./component/uart/usart_adapter.c
@@ -140,11 +163,36 @@ set(APP_SOURCE_FILES
     ./drivers/fsl_reset.c
     ./drivers/fsl_sctimer.c
     ./drivers/fsl_usart.c
-    ./emwin/emWIn_Config/APPW_X_NoFS.c
-    ./source/emwin_temperature_control.c
+    ./drivers/fsl_sdif.c
+    ./emwin/emWin_Config/APPW_X_NoFS.c
+    ./fatfs/source/diskio.c
+    ./fatfs/source/ff.c
+    ./fatfs/source/ffsystem.c
+    ./fatfs/source/ffunicode.c
+    ./fatfs/source/fsl_ram_disk/fsl_ram_disk.c
+    ./fatfs/source/fsl_sd_disk/fsl_sd_disk.c
+    ./sdmmc/port/fsl_sdmmc_event.c
+    ./sdmmc/port/fsl_sdmmc_host.c
+    ./sdmmc/src/fsl_sd.c
+    ./sdmmc/src/fsl_sdmmc_common.c
+    ./source/app.c
+    ./source/semihost_hardfault.c
+    ./source/host_hid_generic.c
+    ./source/reportDescriptorParser.c
+    ./source/reportExtension.c
+    ./source/ringbuffer.c
+    ./source/sdcard_fatfs.c
     ./source/semihost_hardfault.c
     ./startup/startup_lpc54608.c
     ./touchpanel/fsl_ft5406.c
+    ./usb/host/class/usb_host_hid.c
+    ./usb/host/class/usb_host_hub.c
+    ./usb/host/class/usb_host_hub_app.c
+    ./usb/host/usb_host_devices.c
+    ./usb/host/usb_host_framework.c
+    ./usb/host/usb_host_hci.c
+    ./usb/host/usb_host_ip3516hs.c
+    ./usb/host/usb_host_ohci.c
     ./utilities/fsl_assert.c
     ./utilities/fsl_debug_console.c
     ./utilities/fsl_str.c
