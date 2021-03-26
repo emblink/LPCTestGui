@@ -67,13 +67,14 @@ add_link_options(
 # find . -type d
 include_directories(
     ./AppWizard
-    ./AppWizard/Resource
-    ./AppWizard/Resource/Font
-    ./AppWizard/Resource/Image
-    ./AppWizard/Resource/Text
-    ./AppWizard/Source
-    ./AppWizard/Source/CustomCode
-    ./AppWizard/Source/Generated
+./AppWizard/Resource
+./AppWizard/Resource/Font
+./AppWizard/Resource/Image
+./AppWizard/Resource/Text
+./AppWizard/Source
+./AppWizard/Source/CustomCode
+./AppWizard/Source/Generated
+
     ./board
     ./CMSIS
     ./component
@@ -119,27 +120,6 @@ include_directories(
 
 # find -name '*.c'
 set(APP_SOURCE_FILES
-    ./AppWizard/Resource/Font/NettoOT_16_Normal_EXT_AA4.c
-    ./AppWizard/Resource/Font/NotoSans_24_Normal_EXT_AA4.c
-    ./AppWizard/Resource/Image/ButtonDarkPressed_100x30.c
-    ./AppWizard/Resource/Image/ButtonDarkUnpressed_100x30.c
-    ./AppWizard/Resource/Image/corsairLogoCubeGif100x100_30fps.c
-    ./AppWizard/Resource/Image/SliderDarkBlueLeft_30x16.c
-    ./AppWizard/Resource/Image/SliderDarkGrayRight_30x16.c
-    ./AppWizard/Resource/Image/SliderDarkThumbUnpressed_22x22.c
-    ./AppWizard/Resource/Text/APPW_Language_0.c
-    ./AppWizard/Resource/Text/APPW_Pattern.c
-    ./AppWizard/Source/APPW_MainTask.c
-    ./AppWizard/Source/CustomCode/Application.c
-    ./AppWizard/Source/CustomCode/ID_SCREEN_CHOOSE_TEST_Slots.c
-    ./AppWizard/Source/CustomCode/ID_SCREEN_SCREENSAVER_Slots.c
-    ./AppWizard/Source/CustomCode/ID_SCREEN_STANDART_TEST_Slots.c
-    ./AppWizard/Source/Generated/APPWConf.c
-    ./AppWizard/Source/Generated/ID_SCREEN_CHOOSE_TEST.c
-    ./AppWizard/Source/Generated/ID_SCREEN_SCREENSAVER.c
-    ./AppWizard/Source/Generated/ID_SCREEN_STANDART_TEST.c
-    ./AppWizard/Source/Generated/Resource.c
-    ./AppWizard/Resource/Image/gif_orig.c
     ./board/board.c
     ./board/clock_config.c
     ./board/emwin_support.c
@@ -202,6 +182,8 @@ add_executable(${TARGET}
     ${APP_SOURCE_FILES}
 )
 
+add_subdirectory(AppWizard)
+
 target_compile_options(${TARGET} PRIVATE
     $<$<CONFIG:DEBUG>: -O0>
     $<$<CONFIG:RELEASE>: -Os>
@@ -211,14 +193,13 @@ target_compile_options(${TARGET} PRIVATE
 
 target_link_directories(${TARGET} PRIVATE
     libs
-    emwin/emWin_library/ARMGCC
     linkerScript
 )
 
 target_link_libraries(${TARGET}
     libcr_newlib_nohost.a
     libpower_hardabi.a
-    libemWin_M4F.a
+    appwizard
 )
 
 target_link_options(${TARGET} PRIVATE
