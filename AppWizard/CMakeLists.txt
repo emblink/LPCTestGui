@@ -19,7 +19,6 @@ target_sources(${TARGET} PRIVATE
     ./Resource/Font/NotoSans_24_Normal_EXT_AA4.c
     ./Resource/Image/ButtonDarkPressed_100x30.c
     ./Resource/Image/ButtonDarkUnpressed_100x30.c
-    ./Resource/Image/corsairLogoCubeGif100x100_30fps.c
     ./Resource/Image/gif_orig.c
     ./Resource/Image/SliderDarkBlueLeft_30x16.c
     ./Resource/Image/SliderDarkGrayRight_30x16.c

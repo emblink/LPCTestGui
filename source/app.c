@@ -361,17 +361,17 @@ static uint32_t getRandomNumber(uint32_t min, uint32_t max)
 #define BOARD_USER_BUTTON_PIN_MASK (1U << 1U)               /*!<@brief PORT pin mask */
                                                             /* @} */
 
-static void buttonInit(void)
+static void triggerPinInit(void)
 {
-    // GPIO_PortInit(GPIO, GPIO_PORT);
-    // GPIO_PortInit(BOARD_USER_BUTTON_GPIO, BOARD_USER_BUTTON_GPIO_PIN);
-    // gpio_pin_config_t pinConfig = {
-    //     .pinDirection = kGPIO_DigitalOutput,
-    //     .outputLogic = ButtonStateRelease,
-    // };
-    // GPIO_PinInit(GPIO, GPIO_PORT, GPIO_PIN, &pinConfig);
-    // IOCON->PIO[GPIO_PORT][GPIO_PIN] = 0x300;
-    // GPIO_PinWrite(GPIO, GPIO_PORT, GPIO_PIN, ButtonStateRelease);
+    GPIO_PortInit(GPIO, GPIO_PORT);
+    GPIO_PortInit(BOARD_USER_BUTTON_GPIO, BOARD_USER_BUTTON_GPIO_PIN);
+    gpio_pin_config_t pinConfig = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = ButtonStateRelease,
+    };
+    GPIO_PinInit(GPIO, GPIO_PORT, GPIO_PIN, &pinConfig);
+    IOCON->PIO[GPIO_PORT][GPIO_PIN] = 0x300;
+    GPIO_PinWrite(GPIO, GPIO_PORT, GPIO_PIN, ButtonStateRelease);
 }
 
 static void userButtonInit(void)
@@ -805,17 +805,10 @@ static void keyTestProcess(TestHandle *handle)
 
 static void triggerTestProcess(TestHandle *handle)
 {
-    static uint32_t state = 1; 
-    uint32_t newState = GPIO_PinRead(BOARD_USER_BUTTON_GPIO, BOARD_USER_BUTTON_PORT, BOARD_USER_BUTTON_GPIO_PIN);
-    if (newState != state) {
-        if (newState == 0) {
-            usb_echo("Trigger ON\r\n");
-            setKeyState(handle, true);
-        } else {
-            usb_echo("Trigger OFF\r\n");
-            setKeyState(handle, false);
-        }
-        state = newState;
+    APPW_VAR_OBJECT *trigger = APPW_GetVar(ID_VAR_TRIGGER_PRESSED);
+    if (trigger && (bool) trigger->Data != handle->keyIsPressed) {
+        setKeyState(handle, trigger->Data ? true : false);
+        usb_echo("Trigger %s\r\n", handle->keyIsPressed ? "ON" : "OFF");
     }
 }
 
@@ -907,6 +900,8 @@ int main(void) {
     /* Delay at the beginning of the main, you know...
     nothing works without it, fixes display initialization */
     // for (volatile uint32_t i = 0; i < 1000000; i++);
+    BOARD_InitPins();
+    BOARD_BootClockPLL180M();
 
     CLOCK_EnableClock(kCLOCK_InputMux);
     /* Route Main clock to LCD. */
@@ -920,8 +915,6 @@ int main(void) {
     /* need call this function to clear the halt bit in clock divider register */
     CLOCK_SetClkDiv(kCLOCK_DivSdioClk, (uint32_t)(SystemCoreClock / FSL_FEATURE_SDIF_MAX_SOURCE_CLOCK + 1U), true);
 
-    BOARD_InitPins();
-    BOARD_BootClockPLL180M();
     BOARD_InitDebugConsole();
     BOARD_InitSDRAM();
 
@@ -941,14 +934,12 @@ int main(void) {
     //
     APPW_CreateRoot(APPW_INITIAL_SCREEN, WM_HBKWIN);
 
-    // buttonInit();
+    triggerPinInit();
     // userButtonInit();
     timeCounterInit();
 
     usb_echo("\r\n************  Latency test FW version %d.%d.%d  ************\r\n",
             PROJECT_MAJOR_VERSION, PROJECT_MINOR_VERSION, PROJECT_BUILD_NUMBER);
-    usb_echo("User button SW5 can be pressed for the key triggering\r\n");
-    POWER_DisablePD(kPDRUNCFG_PD_USB0_PHY); /*< Turn on USB Phy */
     POWER_DisablePD(kPDRUNCFG_PD_USB1_PHY); /*< Turn on USB Phy */
     USB_HostApplicationInit();
     RingBuffer_Init(&reportRingBuff, inReport, sizeof(inReport) / sizeof(inReport[0]));
@@ -979,8 +970,8 @@ int main(void) {
                 USB_DeviceHsPhyChirpIssueWorkaround(g_HostHandle);
                 timestamp = getTimeMs();
             }
-            triggerTestProcess(&handle);
         }
+        triggerTestProcess(&handle);
 
         if (getTimeSinceMs(guiTimestamp) > 10) {
             APPW_Exec();

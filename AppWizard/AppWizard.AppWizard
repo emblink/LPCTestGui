@@ -63,6 +63,7 @@
     Item=4097,ID_VAR_PRESS_PERIOD,65
     Item=4098,ID_VAR_PRESS_DURATION,1
     Item=4099,ID_VAR_USB_DEVICE_CONFIGURED,0
+    Item=4100,ID_VAR_TRIGGER_PRESSED,0
   </Variables>
   <Objects>
     <Screen>
@@ -1072,6 +1073,28 @@
         RootId=6146
       </Para>
     </SHOWSCREEN>
+    <SETVALUE>
+      RootId=6145
+      IdSrc=ID_BUTTON_TRIGGER
+      NCode=WM_NOTIFICATION_SET
+      IdDst=ID_VAR_TRIGGER_PRESSED
+      Slot=ID_SCREEN_CHOOSE_TEST__ID_BUTTON_TRIGGER__WM_NOTIFICATION_SET
+      Flags=0
+      <Para>
+        Value=1
+      </Para>
+    </SETVALUE>
+    <SETVALUE>
+      RootId=6145
+      IdSrc=ID_BUTTON_TRIGGER
+      NCode=WM_NOTIFICATION_CLEAR
+      IdDst=ID_VAR_TRIGGER_PRESSED
+      Slot=ID_SCREEN_CHOOSE_TEST__ID_BUTTON_TRIGGER__WM_NOTIFICATION_CLEAR
+      Flags=0
+      <Para>
+        Value=0
+      </Para>
+    </SETVALUE>
     <SETVALUE>
       RootId=6144
       IdSrc=ID_SLIDER_QUANTITY

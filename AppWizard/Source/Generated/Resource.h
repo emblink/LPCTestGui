@@ -58,13 +58,12 @@ extern const unsigned char acNettoOT_16_Normal_EXT_AA4[];
 *
 *       Images
 */
-extern const unsigned char accorsairLogoCubeGif100x100_30fps[];
+extern const unsigned char acgif_orig[];
 extern const unsigned char acButtonDarkUnpressed_100x30[];
 extern const unsigned char acButtonDarkPressed_100x30[];
 extern const unsigned char acSliderDarkBlueLeft_30x16[];
 extern const unsigned char acSliderDarkGrayRight_30x16[];
 extern const unsigned char acSliderDarkThumbUnpressed_22x22[];
-extern const unsigned char acgif_orig[];
 
 /*********************************************************************
 *
@@ -74,6 +73,7 @@ extern const unsigned char acgif_orig[];
 #define ID_VAR_PRESS_PERIOD 4097
 #define ID_VAR_PRESS_DURATION 4098
 #define ID_VAR_USB_DEVICE_CONFIGURED 4099
+#define ID_VAR_TRIGGER_PRESSED 4100
 
 /*********************************************************************
 *

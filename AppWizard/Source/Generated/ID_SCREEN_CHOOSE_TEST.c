@@ -159,6 +159,14 @@ static const APPW_ACTION_ITEM _aAction[] = {
     { ARG_V(ID_SCREEN_SCREENSAVER),
     }, 0, NULL
   },
+  { ID_BUTTON_TRIGGER,       WM_NOTIFICATION_SET,              ID_VAR_TRIGGER_PRESSED,  APPW_JOB_SETVALUE,       ID_SCREEN_CHOOSE_TEST__ID_BUTTON_TRIGGER__WM_NOTIFICATION_SET,
+    { ARG_V(1),
+    }, 0, NULL
+  },
+  { ID_BUTTON_TRIGGER,       WM_NOTIFICATION_CLEAR,            ID_VAR_TRIGGER_PRESSED,  APPW_JOB_SETVALUE,       ID_SCREEN_CHOOSE_TEST__ID_BUTTON_TRIGGER__WM_NOTIFICATION_CLEAR,
+    { ARG_V(0),
+    }, 0, NULL
+  },
 };
 
 /*********************************************************************

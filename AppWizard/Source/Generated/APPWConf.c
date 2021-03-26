@@ -60,6 +60,7 @@ static APPW_VAR_OBJECT _aVarList[] = {
   { ID_VAR_PRESS_PERIOD, 0, 65 },
   { ID_VAR_PRESS_DURATION, 0, 1 },
   { ID_VAR_USB_DEVICE_CONFIGURED, 0, 0 },
+  { ID_VAR_TRIGGER_PRESSED, 0, 0 },
 };
 
 /*********************************************************************

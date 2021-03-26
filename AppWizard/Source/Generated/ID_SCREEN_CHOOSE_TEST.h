@@ -36,6 +36,8 @@ Purpose     : Generated file do NOT edit!
 void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_STANDART_TEST__WM_NOTIFICATION_CLICKED(APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
 void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_BOARD_RESET__WM_NOTIFICATION_CLICKED  (APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
 void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_LOCK__WM_NOTIFICATION_CLICKED         (APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
+void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_TRIGGER__WM_NOTIFICATION_SET          (APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
+void ID_SCREEN_CHOOSE_TEST__ID_BUTTON_TRIGGER__WM_NOTIFICATION_CLEAR        (APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult);
 
 /*********************************************************************
 *
