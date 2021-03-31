@@ -165,6 +165,7 @@ set(APP_SOURCE_FILES
     ./source/sdcard_fatfs.c
     ./source/semihost_hardfault.c
     ./gui/gui.c
+    ./gui/corsairLogoCubeGif100x100_30fps.c
     ./startup/startup_lpc54608.c
     ./touchpanel/fsl_ft5406.c
     ./usb/host/class/usb_host_hid.c

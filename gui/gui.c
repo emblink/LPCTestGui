@@ -136,7 +136,7 @@ static void _cbTriggerButton(WM_MESSAGE * pMsg)
     }
 }
 
-static void _cbWin(WM_MESSAGE * pMsg) {
+static void _cbWinscreenMenu(WM_MESSAGE * pMsg) {
     int           Id, NCode;
     static int    Clicked, Released;
     BUTTON_Handle hButton;
@@ -233,7 +233,7 @@ static void screenMenuCb(WM_MESSAGE * pMsg)
 {
     switch (pMsg->MsgId) {
     case WM_CREATE:
-        WM_CreateWindowAsChild(0, 0, LCD_GetXSize(), LCD_GetYSize(), pMsg->hWin, WM_CF_SHOW, _cbWin, 0);
+        WM_CreateWindowAsChild(0, 0, LCD_GetXSize(), LCD_GetYSize(), pMsg->hWin, WM_CF_SHOW, _cbWinscreenMenu, 0);
         break;
     case WM_PAINT:
         break;

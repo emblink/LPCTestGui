@@ -932,7 +932,7 @@ int main(void) {
     // // Create initial screen...
     // //
     // APPW_CreateRoot(APPW_INITIAL_SCREEN, WM_HBKWIN);
-    guiInit();
+    assert(guiInit());
 
     triggerPinInit();
     // userButtonInit();
