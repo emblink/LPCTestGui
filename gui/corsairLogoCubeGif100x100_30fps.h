@@ -1,0 +1,1 @@
+extern unsigned char accorsairLogoCubeGif100x100_30fps[46936UL + 1];

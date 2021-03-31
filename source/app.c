@@ -21,7 +21,6 @@
 #include "board.h"
 #include "sdcard_fatfs.h"
 #include "emwin_support.h"
-#include "DIALOG.h"
 #include "Resource.h"
 #include "usb_host_config.h"
 #include "usb_host.h"
@@ -33,6 +32,7 @@
 #include "reportExtension.h"
 #include "reportDescriptorParser.h"
 #include "ringbuffer.h"
+#include "gui.h"
 
 #if ((!USB_HOST_CONFIG_KHCI) && (!USB_HOST_CONFIG_EHCI) && (!USB_HOST_CONFIG_OHCI) && (!USB_HOST_CONFIG_IP3516HS))
 #error Please enable USB_HOST_CONFIG_KHCI, USB_HOST_CONFIG_EHCI, USB_HOST_CONFIG_OHCI, or USB_HOST_CONFIG_IP3516HS in file usb_host_config.
@@ -169,7 +169,6 @@ static usb_status_t USB_HostEvent(usb_device_handle deviceHandle,
 
     case kUSB_HostEventEnumerationFail:
         usb_echo("enumeration failed\r\n");
-        NVIC_SystemReset();
         break;
 
     default:
@@ -924,15 +923,16 @@ int main(void) {
 
     // code from MainTask();
     // Setup configuration dependent pointers
-    APPW_X_Setup();
-    //
-    // Initialize AppWizard
-    //
-    APPW_Init(APPW_PROJECT_PATH);
-    //
-    // Create initial screen...
-    //
-    APPW_CreateRoot(APPW_INITIAL_SCREEN, WM_HBKWIN);
+    // APPW_X_Setup();
+    // //
+    // // Initialize AppWizard
+    // //
+    // APPW_Init(APPW_PROJECT_PATH);
+    // //
+    // // Create initial screen...
+    // //
+    // APPW_CreateRoot(APPW_INITIAL_SCREEN, WM_HBKWIN);
+    guiInit();
 
     triggerPinInit();
     // userButtonInit();
@@ -973,8 +973,8 @@ int main(void) {
         }
         triggerTestProcess(&handle);
 
-        if (getTimeSinceMs(guiTimestamp) > 10) {
-            APPW_Exec();
+        if (getTimeSinceMs(guiTimestamp) > 40) {
+        //     // APPW_Exec();
             GUI_Delay(1);
             guiTimestamp = getTimeMs();
         }

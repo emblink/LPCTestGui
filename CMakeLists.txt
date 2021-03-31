@@ -97,6 +97,7 @@ include_directories(
     ./fatfs/source
     ./fatfs/source/fsl_ram_disk
     ./fatfs/source/fsl_sd_disk
+    ./gui
     ./libs
     ./linkerScript
     ./scripts
@@ -163,6 +164,7 @@ set(APP_SOURCE_FILES
     ./source/ringbuffer.c
     ./source/sdcard_fatfs.c
     ./source/semihost_hardfault.c
+    ./gui/gui.c
     ./startup/startup_lpc54608.c
     ./touchpanel/fsl_ft5406.c
     ./usb/host/class/usb_host_hid.c
