@@ -53,9 +53,10 @@ static void screenSaverCb(WM_MESSAGE * pMsg)
         GUI_DispStringAt(acBuffer, 150, 10);
         GUI_SetFont(&GUI_Font16_ASCII);
         GUI_SetColor(GUI_LIGHTBLUE);
-        GUI_DispStringAt("Press to unlock", 200, 250);
+        GUI_DispStringAt("Press logo to unlock", 180, 250);
         break;
     case WM_TOUCH_CHILD:
+        // logo image is child here
         WM_HideWin(screenHandle[SCREEN_ID_SAVER]);
         WM_ShowWin(screenHandle[SCREEN_ID_MENU]);
         break;
