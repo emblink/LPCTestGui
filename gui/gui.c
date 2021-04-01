@@ -197,7 +197,9 @@ static void screenTestCb(WM_MESSAGE * pMsg)
 {
     int Id, NCode;
     BUTTON_Handle hButton;
-    static WM_HWIN hBox;
+    static WM_HWIN hBoxX10;
+    static WM_HWIN hBoxX1000;
+    static WM_HWIN hBoxRandomTest;
     int Value;
     char acBuffer[64];
     int State;
@@ -207,17 +209,25 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         hButton = BUTTON_CreateEx(10, LCD_GetYSize() - 50, 100, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_BACK);
         BUTTON_SetText(hButton, "Back");
 
-        hBox = CHECKBOX_CreateEx(350, 10, 80, 25, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK0);
+        hBoxX10 = CHECKBOX_CreateEx(350, 10, 50, 25, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK0);
+        hBoxX1000 = CHECKBOX_CreateEx(350, 40, 70, 25, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK1);
+        hBoxRandomTest = CHECKBOX_CreateEx(350, 70, 110, 25, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK2);
         //
         // Edit widget properties.
         //
-        CHECKBOX_SetText(hBox, "x10");
-        CHECKBOX_SetTextColor(hBox, GUI_GREEN);
-        CHECKBOX_SetFont(hBox, &GUI_Font16_1);
+        CHECKBOX_SetText(hBoxX10, "x10");
+        CHECKBOX_SetText(hBoxX1000, "x1000");
+        CHECKBOX_SetText(hBoxRandomTest, "Random test");
+        CHECKBOX_SetTextColor(hBoxX10, GUI_GREEN);
+        CHECKBOX_SetTextColor(hBoxX1000, GUI_GREEN);
+        CHECKBOX_SetTextColor(hBoxRandomTest, GUI_YELLOW);
+        CHECKBOX_SetFont(hBoxX10, &GUI_Font16_1);
+        CHECKBOX_SetFont(hBoxX1000, &GUI_Font16_1);
+        CHECKBOX_SetFont(hBoxRandomTest, &GUI_Font16B_1);
         //
         // Manually set the state
         //
-        CHECKBOX_SetState(hBox, 1);
+        CHECKBOX_SetState(hBoxX1000, 1);
         break;
     case WM_PAINT:
         //
