@@ -166,6 +166,7 @@ set(APP_SOURCE_FILES
     ./source/semihost_hardfault.c
     ./gui/gui.c
     ./gui/corsairLogoCubeGif100x100_30fps.c
+    ./gui/toggleSwitch.c
     ./startup/startup_lpc54608.c
     ./touchpanel/fsl_ft5406.c
     ./usb/host/class/usb_host_hid.c
