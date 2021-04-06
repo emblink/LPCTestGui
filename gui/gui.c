@@ -78,9 +78,6 @@ static void _cbTriggerButton(WM_MESSAGE * pMsg)
     switch(pMsg->MsgId) {
     case WM_PAINT:
         // Anything drawn here will be how the button looks.
-        if (BUTTON_IsPressed(pMsg->hWin)) {
-            triggerState = !triggerState;
-        }
         if (triggerState) {
             GUI_SetColor(GUI_GREEN);
         } else {
@@ -93,7 +90,6 @@ static void _cbTriggerButton(WM_MESSAGE * pMsg)
         Rect.y1 -= 1;
         GUI_FillRoundedRectEx(&Rect, 3);
         GUI_DrawRoundedRect(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3);
-        GUI_SetColor(GUI_BLACK);
         GUI_SetTextMode(GUI_TM_TRANS);
         GUI_SetFont(&GUI_Font13B_1);
         if (triggerState) {
@@ -279,6 +275,7 @@ static void screenMenuCb(WM_MESSAGE * pMsg)
             break;
         case ID_BUTTON_TRIGGER_CHECK:
             if (NCode == WM_NOTIFICATION_CLICKED) {
+                triggerState = !triggerState;
                 onTriggerPress(triggerState);
             }
             break;
