@@ -25,6 +25,7 @@ typedef enum {
     ID_BUTTON_BACK,
     ID_BUTTON_CLEAR,
     ID_BUTTON_START,
+    ID_BUTTON_RANDOM_TEST,
     ID_BUTTON_COUNT,
 } ID_BUTTON;
 
@@ -192,7 +193,8 @@ static void _cbTerminal(WM_MESSAGE * pMsg)
         Rect.x1 -= 2;
         Rect.y1 -= 2;
         GUI_SetPenSize(2);
-        GUI_DrawGradientRoundedV(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3, GUI_MAKE_COLOR(0x00DFD9CF), GUI_MAKE_COLOR(0x00F0EBE2));
+        // GUI_DrawGradientRoundedV(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3, GUI_MAKE_COLOR(0x00DFD9CF), GUI_MAKE_COLOR(0x00F0EBE2));
+        GUI_DrawGradientRoundedV(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3, 0x00300A24, 0x00310B26);
         GUI_AA_DrawRoundedRectEx(&Rect, 3);
         // Copy current rectangle into a clip rectangle
         CRect = Rect;
@@ -202,7 +204,7 @@ static void _cbTerminal(WM_MESSAGE * pMsg)
         Rect.y0 += 10;
         Rect.x1 -= 10;
         Rect.y1 -= 10;
-        GUI_SetFont(&GUI_Font13_1);
+        GUI_SetFont(&GUI_Font13B_1);
         // Calculate size of rectangle, so that the entire text will fit in
         Rect.y1 += GUI_WrapGetNumLines(terminalBuff, Rect.x1 - Rect.x0, GUI_WRAPMODE_WORD) * GUI_GetFontSizeY();
         // Calculate MaxOffset, so that the scrolling ends right at the end of the text
@@ -211,7 +213,7 @@ static void _cbTerminal(WM_MESSAGE * pMsg)
         Rect.y0 += yOffset;
         Rect.y1 += yOffset;
         GUI_SetTextMode(GUI_TM_TRANS);
-        GUI_SetFont(&GUI_Font13_1);
+        GUI_SetColor(GUI_WHITE);
         GUI_DispStringInRectWrap(terminalBuff, &Rect, GUI_TA_LEFT, GUI_WRAPMODE_WORD);
         // Clear the clipping rectangle
         GUI_SetClipRect(NULL);
@@ -232,18 +234,22 @@ static void screenMenuCb(WM_MESSAGE * pMsg)
     char acBuffer[64];
     GUI_RECT Rect;
     switch(pMsg->MsgId) {
-    case WM_CREATE:6
+    case WM_CREATE:
         // Create a button as child of this window.
         hButton = BUTTON_CreateEx(400, 5, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_STANDART_TEST);
-        BUTTON_SetText(hButton, "Standart Test");
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
+        BUTTON_SetText(hButton, "Standart\nTest");
         hButton = BUTTON_CreateEx(400, 60, 75, 40, pMsg->hWin, WM_CF_SHOW , 0, ID_BUTTON_TRIGGER_CHECK);
         WM_SetCallback(hButton, _cbTriggerButton);
         hButton = BUTTON_CreateEx(400, 115, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_LOCK);
         BUTTON_SetText(hButton, "Lock");
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
         hButton = BUTTON_CreateEx(400, 170, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_RESET_BOARD);
-        BUTTON_SetText(hButton, "Reset Board");
+        BUTTON_SetText(hButton, "Reset\nBoard");
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
         hButton = BUTTON_CreateEx(400, 225, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CLEAR_LOG);
         BUTTON_SetText(hButton, "Clear Log");
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
         // Create terminal log
         hTerminal = WM_CreateWindowAsChild(5, 5, LCD_GetXSize() - 90, LCD_GetYSize() - 10, pMsg->hWin, WM_CF_SHOW | WM_CF_HASTRANS, _cbTerminal, 0);
         // hTerminalScroll = SCROLLBAR_CreateEx(375, 5, 15, WM_GetWindowSizeY(pMsg->hWin), pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_SCROLLBAR0);
@@ -364,11 +370,14 @@ static void screenTestCb(WM_MESSAGE * pMsg)
     case WM_CREATE:
         hButton = BUTTON_CreateEx(10, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_BACK);
         BUTTON_SetText(hButton, "Back");
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
         hButton = BUTTON_CreateEx(10 + 75 + 20, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CLEAR);
         BUTTON_SetText(hButton, "Clear");
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
         hButton = BUTTON_CreateEx(10 + 75 + 20 + 75 + 20, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_START);
         BUTTON_SetText(hButton, "Start");
-        hButton = BUTTON_CreateEx(380, 130, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_START);
+        BUTTON_SetFont(hButton, &GUI_Font13B_1);
+        hButton = BUTTON_CreateEx(380, 130, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_RANDOM_TEST);
         WM_SetCallback(hButton, _cbRandomTestButton);
 
         hBoxX10 = CHECKBOX_CreateEx(350, 10, 60, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK0);
