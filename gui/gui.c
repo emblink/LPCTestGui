@@ -16,12 +16,14 @@ typedef enum {
 static WM_HWIN screenHandle[SCREEN_ID_COUNT] = {0};
 
 typedef enum {
-    ID_BUTTON_UNLOCK,
+    ID_BUTTON_UNLOCK = GUI_ID_BUTTON0,
     ID_BUTTON_STANDART_TEST,
     ID_BUTTON_LOCK,
     ID_BUTTON_TRIGGER_CHECK,
     ID_BUTTON_RESET_BOARD,
+    ID_BUTTON_CLEAR_LOG,
     ID_BUTTON_BACK,
+    ID_BUTTON_CLEAR,
     ID_BUTTON_START,
     ID_BUTTON_COUNT,
 } ID_BUTTON;
@@ -44,9 +46,7 @@ static void screenSaverCb(WM_MESSAGE * pMsg)
         IMAGE_SetGIF(logo, accorsairLogoCubeGif100x100_30fps, sizeof(accorsairLogoCubeGif100x100_30fps));
         break;
     case WM_PAINT:
-        //
         // This case is called everytime the window has to be redrawn
-        //
         GUI_SetBkColor(GUI_BLACK);
         GUI_Clear();
         GUI_SetFont(&GUI_Font20_ASCII);
@@ -68,11 +68,12 @@ static void screenSaverCb(WM_MESSAGE * pMsg)
     }
 }
 
+static bool triggerState = false;
+extern void onTriggerPress(bool triggerIsOn);
+
 static void _cbTriggerButton(WM_MESSAGE * pMsg)
 {
     GUI_RECT Rect;
-    static bool triggerState = 0;
-
     switch(pMsg->MsgId) {
     case WM_PAINT:
         // Anything drawn here will be how the button looks.
@@ -82,7 +83,7 @@ static void _cbTriggerButton(WM_MESSAGE * pMsg)
         if (triggerState) {
             GUI_SetColor(GUI_GREEN);
         } else {
-            GUI_SetColor(GUI_GRAY_C8);
+            GUI_SetColor(GUI_DARKRED);
         }
         WM_GetClientRect(&Rect);
         Rect.x0 += 1;
@@ -93,15 +94,134 @@ static void _cbTriggerButton(WM_MESSAGE * pMsg)
         GUI_DrawRoundedRect(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3);
         GUI_SetColor(GUI_BLACK);
         GUI_SetTextMode(GUI_TM_TRANS);
+        GUI_SetFont(&GUI_Font13B_1);
         if (triggerState) {
-            GUI_DispStringInRect("Trigger ON", &Rect, GUI_TA_HCENTER | GUI_TA_VCENTER);
+            GUI_SetColor(GUI_BLACK);
+            GUI_DispStringInRect("Trigger\nON", &Rect, GUI_TA_HCENTER | GUI_TA_VCENTER);
         } else {
-            GUI_DispStringInRect("Trigger OFF", &Rect, GUI_TA_HCENTER | GUI_TA_VCENTER);
+            GUI_SetColor(GUI_WHITE);
+            GUI_DispStringInRect("Trigger\nOFF", &Rect, GUI_TA_HCENTER | GUI_TA_VCENTER);
         }
         break;
     default:
         // Anything else apart from drawing is handled by the default callback.
         BUTTON_Callback(pMsg);
+    }
+}
+
+#define MSG_UPDATE_TERMINAL (WM_USER + 0x01)
+static WM_HWIN hTerminal;
+static char terminalBuff[1024] = {'\0'};
+static uint32_t terminalBuffIdx = 0;
+
+static void guiTerminalUpdate(void)
+{
+    WM_MESSAGE Message;
+    // Fill message struct with data needed for the message
+    Message.hWin = hTerminal; // Window to receive the message
+    Message.hWinSrc = hTerminal; // Source window sending the message
+    Message.MsgId = MSG_UPDATE_TERMINAL;    // Message ID
+    // Message.Data.v  = GUI_GetTime(); // Custom data value
+    WM_SendMessage(hTerminal, &Message);
+}
+
+void guiTerminalEcho(const char *message, int len)
+{
+    if (terminalBuffIdx + len + 1 > sizeof(terminalBuff) - 1) {
+        terminalBuffIdx = 0;
+    }
+    while(*message) {
+        terminalBuff[terminalBuffIdx++] = *message++;
+    }
+    terminalBuff[terminalBuffIdx] = '\0';
+    guiTerminalUpdate();
+}
+
+static void _cbTerminal(WM_MESSAGE * pMsg)
+{
+    GUI_RECT         Rect;
+    GUI_RECT         CRect;
+    WM_MOTION_INFO * pInfo;
+    WM_SCROLL_STATE State;
+    static int       yOffset;
+    static int       MaxOffset;
+
+    switch (pMsg->MsgId) {
+    case WM_MOTION:
+        pInfo = (WM_MOTION_INFO *)pMsg->Data.p;
+        switch (pInfo->Cmd) {
+        case WM_MOTION_INIT:
+            // Tell the motion module to move in y direction and that we manage it on our own
+            pInfo->Flags = WM_CF_MOTION_Y | WM_MOTION_MANAGE_BY_WINDOW;
+        break;
+        case WM_MOTION_MOVE:
+            // Move the text rectangle up or down
+            yOffset += pInfo->dy;
+            // if (pInfo->dy > 0) {
+            //     SCROLLBAR_Inc(hTerminalScroll);
+            // } else {
+            //     SCROLLBAR_Dec(hTerminalScroll);
+            // }
+            if (yOffset < MaxOffset) {
+                // If reach the end, make sure we stop there
+                yOffset = MaxOffset;
+                pInfo->StopMotion = 1;
+            }
+            else if (yOffset > 0) {
+                // If reach the top, make sure we stop there
+                yOffset = 0;
+                pInfo->StopMotion = 1;
+            }
+            // Tell the window to redraw
+            WM_InvalidateWindow(pMsg->hWin);
+        break;
+        case WM_MOTION_GETPOS:
+            pInfo->yPos = yOffset;
+        break;
+        }
+        break;
+    case WM_PAINT:
+        // Draw something
+        GUI_SetBkColor(GUI_BLACK);
+        GUI_Clear();
+
+        GUI_SetColor(GUI_BLACK);
+        WM_GetClientRect(&Rect);
+        Rect.x0 += 2;
+        Rect.y0 += 2;
+        Rect.x1 -= 2;
+        Rect.y1 -= 2;
+        GUI_SetPenSize(2);
+        GUI_DrawGradientRoundedV(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3, GUI_MAKE_COLOR(0x00DFD9CF), GUI_MAKE_COLOR(0x00F0EBE2));
+        GUI_AA_DrawRoundedRectEx(&Rect, 3);
+        // Copy current rectangle into a clip rectangle
+        CRect = Rect;
+        GUI_SetClipRect(&CRect);
+        // Prepare rect to display text
+        Rect.x0 += 10;
+        Rect.y0 += 10;
+        Rect.x1 -= 10;
+        Rect.y1 -= 10;
+        GUI_SetFont(&GUI_Font13_1);
+        // Calculate size of rectangle, so that the entire text will fit in
+        Rect.y1 += GUI_WrapGetNumLines(terminalBuff, Rect.x1 - Rect.x0, GUI_WRAPMODE_WORD) * GUI_GetFontSizeY();
+        // Calculate MaxOffset, so that the scrolling ends right at the end of the text
+        MaxOffset = -(Rect.y1) / 2;
+        // Add the current yOffset to the rectangle, so the text is displayed accordingly
+        Rect.y0 += yOffset;
+        Rect.y1 += yOffset;
+        GUI_SetTextMode(GUI_TM_TRANS);
+        GUI_SetFont(&GUI_Font13_1);
+        GUI_DispStringInRectWrap(terminalBuff, &Rect, GUI_TA_LEFT, GUI_WRAPMODE_WORD);
+        // Clear the clipping rectangle
+        GUI_SetClipRect(NULL);
+        break;
+    case MSG_UPDATE_TERMINAL:
+        WM_InvalidateWindow(pMsg->hWin);
+        break;
+    default:
+        WM_DefaultProc(pMsg);
+        break;
     }
 }
 
@@ -111,25 +231,27 @@ static void screenMenuCb(WM_MESSAGE * pMsg)
     BUTTON_Handle hButton;
     char acBuffer[64];
     GUI_RECT Rect;
-
     switch(pMsg->MsgId) {
-    case WM_CREATE:
+    case WM_CREATE:6
         // Create a button as child of this window.
-        hButton = BUTTON_CreateEx(100, 50, 100, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_STANDART_TEST);
-        BUTTON_SetText(hButton, "Standart test");
-        hButton = BUTTON_CreateEx(300, 50, 100, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_LOCK);
-        BUTTON_SetText(hButton, "Lock");
-        hButton = BUTTON_CreateEx(100, 150, 100, 40, pMsg->hWin, WM_CF_SHOW , 0, ID_BUTTON_TRIGGER_CHECK);
+        hButton = BUTTON_CreateEx(400, 5, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_STANDART_TEST);
+        BUTTON_SetText(hButton, "Standart Test");
+        hButton = BUTTON_CreateEx(400, 60, 75, 40, pMsg->hWin, WM_CF_SHOW , 0, ID_BUTTON_TRIGGER_CHECK);
         WM_SetCallback(hButton, _cbTriggerButton);
-        hButton = BUTTON_CreateEx(300, 150, 100, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_RESET_BOARD);
+        hButton = BUTTON_CreateEx(400, 115, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_LOCK);
+        BUTTON_SetText(hButton, "Lock");
+        hButton = BUTTON_CreateEx(400, 170, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_RESET_BOARD);
         BUTTON_SetText(hButton, "Reset Board");
+        hButton = BUTTON_CreateEx(400, 225, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CLEAR_LOG);
+        BUTTON_SetText(hButton, "Clear Log");
+        // Create terminal log
+        hTerminal = WM_CreateWindowAsChild(5, 5, LCD_GetXSize() - 90, LCD_GetYSize() - 10, pMsg->hWin, WM_CF_SHOW | WM_CF_HASTRANS, _cbTerminal, 0);
+        // hTerminalScroll = SCROLLBAR_CreateEx(375, 5, 15, WM_GetWindowSizeY(pMsg->hWin), pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_SCROLLBAR0);
         break;
     case WM_PAINT:
         // This case is called everytime the window has to be redrawn
         GUI_SetBkColor(GUI_BLACK);
         GUI_Clear();
-        GUI_SetColor(GUI_LIGHTBLUE);
-        GUI_DispStringAt("Menu Screen", 10, 10);
         break;
     case WM_NOTIFY_PARENT:
         // Since the button is a child of this window, reacts on the button
@@ -151,12 +273,19 @@ static void screenMenuCb(WM_MESSAGE * pMsg)
             break;
         case ID_BUTTON_TRIGGER_CHECK:
             if (NCode == WM_NOTIFICATION_CLICKED) {
-
+                onTriggerPress(triggerState);
             }
             break;
         case ID_BUTTON_RESET_BOARD:
             if (NCode == WM_NOTIFICATION_RELEASED) {
                 onBoardReset();
+            }
+            break;
+        case ID_BUTTON_CLEAR_LOG:
+            if (NCode == WM_NOTIFICATION_CLICKED) {
+                terminalBuffIdx = 0;
+                terminalBuff[terminalBuffIdx] = '\0';
+                guiTerminalUpdate();
             }
             break;
         default:
@@ -165,6 +294,45 @@ static void screenMenuCb(WM_MESSAGE * pMsg)
         break;
     default:
         WM_DefaultProc(pMsg);
+    }
+}
+
+static void _cbRandomTestButton(WM_MESSAGE * pMsg)
+{
+    static bool randomTestOn = false;
+    GUI_RECT Rect;
+    switch(pMsg->MsgId) {
+    case WM_PAINT:
+        // Anything drawn here will be how the button looks.
+        if (BUTTON_IsPressed(pMsg->hWin)) {
+            randomTestOn = !randomTestOn;
+        }
+        if (randomTestOn) {
+            GUI_SetColor(GUI_GREEN);
+        } else {
+            // GUI_SetColor(GUI_GRAY_C8);
+            GUI_SetColor(GUI_DARKRED);
+        }
+        WM_GetClientRect(&Rect);
+        Rect.x0 += 1;
+        Rect.x1 -= 1;
+        Rect.y0 += 1;
+        Rect.y1 -= 1;
+        GUI_FillRoundedRectEx(&Rect, 3);
+        GUI_DrawRoundedRect(Rect.x0, Rect.y0, Rect.x1, Rect.y1, 3);
+        GUI_SetTextMode(GUI_TM_TRANS);
+        GUI_SetFont(&GUI_Font13B_1);
+        if (randomTestOn) {
+            GUI_SetColor(GUI_BLACK);
+            GUI_DispStringInRect("Random\ntest ON", &Rect, GUI_TA_HCENTER | GUI_TA_VCENTER);
+        } else {
+            GUI_SetColor(GUI_WHITE);
+            GUI_DispStringInRect("Random\ntest OFF", &Rect, GUI_TA_HCENTER | GUI_TA_VCENTER);
+        }
+        break;
+    default:
+        // Anything else apart from drawing is handled by the default callback.
+        BUTTON_Callback(pMsg);
     }
 }
 
@@ -194,8 +362,14 @@ static void screenTestCb(WM_MESSAGE * pMsg)
 
     switch(pMsg->MsgId) {
     case WM_CREATE:
-        hButton = BUTTON_CreateEx(10, LCD_GetYSize() - 50, 100, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_BACK);
+        hButton = BUTTON_CreateEx(10, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_BACK);
         BUTTON_SetText(hButton, "Back");
+        hButton = BUTTON_CreateEx(10 + 75 + 20, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_CLEAR);
+        BUTTON_SetText(hButton, "Clear");
+        hButton = BUTTON_CreateEx(10 + 75 + 20 + 75 + 20, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_START);
+        BUTTON_SetText(hButton, "Start");
+        hButton = BUTTON_CreateEx(380, 130, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_START);
+        WM_SetCallback(hButton, _cbRandomTestButton);
 
         hBoxX10 = CHECKBOX_CreateEx(350, 10, 60, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK0);
         hBoxX1000 = CHECKBOX_CreateEx(350, 40, 80, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK1);
@@ -231,37 +405,14 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         // Set width of thumb
         SLIDER_SetWidth(hSliderPressHoldTime, 25);
 
-        // Create SWITCH widget.
-        hSwitchRandomTest = SWITCH_CreateUser(380, 150, 80, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_SWITCH0, 0);
-        // Set background bitmaps for different states.
-        SWITCH_SetBitmap(hSwitchRandomTest, SWITCH_BI_BK_LEFT,     &bmLeft_80x30);
-        SWITCH_SetBitmap(hSwitchRandomTest, SWITCH_BI_BK_RIGHT,    &bmRight_80x30);
-        SWITCH_SetBitmap(hSwitchRandomTest, SWITCH_BI_BK_DISABLED, &bmDisabled_80x30);
-        // Set thumb bitmaps for different states.
-        SWITCH_SetBitmap(hSwitchRandomTest, SWITCH_BI_THUMB_LEFT,     &bmThumbLeft_30x30);
-        SWITCH_SetBitmap(hSwitchRandomTest, SWITCH_BI_THUMB_RIGHT,    &bmThumbRight_30x30);
-        SWITCH_SetBitmap(hSwitchRandomTest, SWITCH_BI_THUMB_DISABLED, &bmThumbDisabled_30x30);
-        // Set font.
-        SWITCH_SetFont(hSwitchRandomTest, &GUI_Font16_ASCII);
-        // Set texts for different states.
-        SWITCH_SetText(hSwitchRandomTest, SWITCH_TI_LEFT,  "On");
-        SWITCH_SetText(hSwitchRandomTest, SWITCH_TI_RIGHT, "Off");
-        // Set text colors for different states.
-        SWITCH_SetTextColor(hSwitchRandomTest, SWITCH_TI_LEFT,  GUI_BLACK);
-        SWITCH_SetTextColor(hSwitchRandomTest, SWITCH_TI_RIGHT, GUI_RED);
-        // Set SWITCH to fade mode.
-        SWITCH_SetMode(hSwitchRandomTest, SWITCH_MODE_FADE);
-        // Change period it takes to stop the animation.
-        SWITCH_SetPeriod(hSwitchRandomTest, 75);
-
         // Create quantity text
-        TEXT_Handle hTextQuantity = TEXT_CreateEx(5, 0, 70, 20, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_TEXT0, "Quantity");
+        TEXT_Handle hTextQuantity = TEXT_CreateEx(10, 0, 70, 20, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_TEXT0, "Quantity");
         TEXT_SetBkColor(hTextQuantity, GUI_BLACK);
         TEXT_SetFont(hTextQuantity, &GUI_Font20_1);
         TEXT_SetTextColor(hTextQuantity, GUI_LIGHTBLUE);
 
         // Create quantity edit
-        hEditQuantity = EDIT_CreateEx(5, 20, 70, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_EDIT0, 6);
+        hEditQuantity = EDIT_CreateEx(10, 20, 70, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_EDIT0, 6);
         EDIT_SetUlongMode(hEditQuantity, 1000, 1, 500000);
         EDIT_SetFont(hEditQuantity, &GUI_Font20B_1);
         EDIT_SetInsertMode(hEditQuantity, 1);
@@ -279,7 +430,7 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         // Edit some properties
         DROPDOWN_SetFont(hDropdown, &GUI_Font16B_1);
         DROPDOWN_SetItemSpacing(hDropdown, 5);
-        DROPDOWN_SetTextColor(hDropdown, DROPDOWN_CI_UNSEL, GUI_LIGHTRED); 
+        DROPDOWN_SetTextColor(hDropdown, DROPDOWN_CI_UNSEL, GUI_DARKRED); 
         break;
     case WM_PAINT:
         // This case is called everytime the window has to be redrawn
@@ -298,15 +449,6 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         Value = SLIDER_GetValue(hSliderPressHoldTime);
         sprintf(acBuffer, "Press hold: %d, ms", Value);
         GUI_DispStringAt(acBuffer, 245, 110);
-
-        // Display screen name
-        GUI_SetColor(GUI_LIGHTBLUE);
-        GUI_DispStringAt("Test screen", 380, 240);
-    
-        // Display state of SWITCH widget.
-        GUI_SetColor(GUI_YELLOW);
-        GUI_SetFont(&GUI_Font16B_1);
-        GUI_DispStringAt("Random test", 380, 130);
         break;
     case WM_SET_ID:
         Id = pMsg->Data.v;  // Remember Id
@@ -406,6 +548,10 @@ static void screenTestCb(WM_MESSAGE * pMsg)
             break;
         case GUI_ID_DROPDOWN0:
             if (NCode == WM_NOTIFICATION_SEL_CHANGED) {
+                if (DROPDOWN_GetSel(hDropdown) == 1) {
+                    // WM_HWIN hMessage = GUI_MessageBox("Wait...","Initing SD_Card", GUI_MESSAGEBOX_CF_MOVEABLE);
+                    // WM_HWIN hMessageMove = GUI_MessageBox("This message is movable!", "Movable Messagebox", GUI_MESSAGEBOX_CF_MOVEABLE);
+                }
                 // Invalidate parent window when a new item has been selected to display the new selection.
                 WM_InvalidateWindow(pMsg->hWin);
             }
@@ -428,7 +574,9 @@ static WM_CALLBACK *screenCb[SCREEN_ID_COUNT] = {
 bool guiInit(void)
 {
     GUI_Init();
-    // Enable multi-buffering to avoid flickering.
+    // Enable motion support
+    WM_MOTION_Enable(1);
+    // Enable multi-buffering to avoid flickering during motion
     WM_MULTIBUF_Enable(1);
     // Create screens
     for (SCREEN_ID screenID = SCREEN_ID_SAVER; screenID < SCREEN_ID_COUNT; screenID++) {

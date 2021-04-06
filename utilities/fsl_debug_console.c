@@ -863,6 +863,7 @@ DEBUG_CONSOLE_FUNCTION_PREFIX status_t DbgConsole_Flush(void)
 #endif
 
 #if SDK_DEBUGCONSOLE
+extern void guiTerminalEcho(const char *message, int len);
 /* See fsl_debug_console.h for documentation of this function. */
 int DbgConsole_Printf(const char *formatString, ...)
 {
@@ -881,6 +882,7 @@ int DbgConsole_Printf(const char *formatString, ...)
     /* print log */
     dbgResult = DbgConsole_SendDataReliable((uint8_t *)printBuf, (size_t)logLength);
 
+    guiTerminalEcho(printBuf, logLength);
     va_end(ap);
 
     return dbgResult;

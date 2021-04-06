@@ -402,14 +402,14 @@ static void userButtonInit(void)
 
 static void setKeyState(TestHandle *handle, bool press)
 {
-    handle->keyIsPressed = press;
+    // handle->keyIsPressed = press;
     if (press) {
         // calculate when to perform release and the next press
-        handle->nextPressTimeUs = handle->userInput.periodMs * 1000 + getRandomNumber(0, 1000);
-        handle->releaseDelayUs = handle->userInput.periodMs * 1000 / 2 + getRandomNumber(0, 1000);
-        handle->pressTimeUs = getTimeUs();
+        // handle->nextPressTimeUs = handle->userInput.periodMs * 1000 + getRandomNumber(0, 1000);
+        // handle->releaseDelayUs = handle->userInput.periodMs * 1000 / 2 + getRandomNumber(0, 1000);
+        // handle->pressTimeUs = getTimeUs();
     } else {
-        handle->releaseTimeUs = getTimeUs();
+        // handle->releaseTimeUs = getTimeUs();
     }
     GPIO_PinWrite(GPIO, GPIO_PORT, GPIO_PIN, press ? ButtonStatePress : ButtonStateRelease);
 }
@@ -809,6 +809,13 @@ static void triggerTestProcess(TestHandle *handle)
         setKeyState(handle, trigger->Data ? true : false);
         usb_echo("Trigger %s\r\n", handle->keyIsPressed ? "ON" : "OFF");
     }
+}
+
+void onTriggerPress(bool triggerIsOn)
+{
+    TestHandle *handle;
+    setKeyState(handle, triggerIsOn);
+    usb_echo("Trigger %s\r\n", triggerIsOn ? "ON" : "OFF");
 }
 
 void onReportReceived(const uint8_t *data, uint32_t dataLength, usb_host_hid_generic_instance_t *genericHidInterface)
