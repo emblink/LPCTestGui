@@ -26,8 +26,24 @@ typedef enum {
     ID_BUTTON_CLEAR,
     ID_BUTTON_START,
     ID_BUTTON_RANDOM_TEST,
+    ID_BUTTON_UP,
+    ID_BUTTON_DOWN,
     ID_BUTTON_COUNT,
 } ID_BUTTON;
+
+typedef enum {
+    ID_SLIDER_QUANTITY = GUI_ID_SLIDER0,
+    ID_SLIDER_PRESS_PERIOD,
+    ID_SLIDER_PRESS_HOLD,
+} ID_SLIDER;
+
+typedef enum {
+    ID_CHECKBOX_X1000 = GUI_ID_CHECK0,
+} ID_CHECKBOX;
+
+typedef enum {
+    ID_DROPDOWN_OUTPUT_STREAM = GUI_ID_DROPDOWN0,
+} ID_DROPDOWN;
 
 typedef enum {
     ID_IMAGE_CORSAIR_LOGO,
@@ -339,6 +355,116 @@ static void _cbRandomTestButton(WM_MESSAGE * pMsg)
     }
 }
 
+static void _cbUpButton(WM_MESSAGE * pMsg)
+{
+    GUI_RECT Rect;
+    int state;
+    switch (pMsg->MsgId) {
+    case WM_PAINT:
+        GUI_EnableAlpha(1);
+        // Draw button
+        state = BUTTON_IsPressed(pMsg->hWin);
+        if (state) {
+            GUI_SetColor(GUI_ORANGE);
+        } else {
+            GUI_SetColor(GUI_BLACK);
+        }
+        WM_GetWindowRectEx(pMsg->hWin, &Rect);
+        int width = WM_GetWindowSizeX(pMsg->hWin);
+        int height = WM_GetWindowSizeY(pMsg->hWin);
+        GUI_AA_FillCircle(width / 2, height / 2, height / 2 - 1);
+        if (state) {
+            GUI_SetColor(GUI_WHITE);
+        } else {
+            GUI_SetColor(GUI_ORANGE);
+        }
+        GUI_SetPenSize(2);
+        GUI_AA_DrawCircle(width / 2, height / 2, height / 2 - 1);
+        const GUI_POINT arrowPoints[3] = {
+            [0] = {
+                .x = width / 5,
+                .y = height * 3 / 5,
+            },
+            [1] = {
+                .x = width / 2,
+                .y = height * 3 / 10,
+            },
+            [2] = {
+                .x = width - width / 5,
+                .y = height * 3 / 5,
+            }
+        };
+        if (state) {
+            GUI_SetColor(GUI_BLACK);
+        } else {
+            GUI_SetColor(GUI_WHITE);
+        }
+        GUI_SetPenSize(6);
+        GUI_AA_DrawLine(arrowPoints[0].x, arrowPoints[0].y, arrowPoints[1].x, arrowPoints[1].y);
+        GUI_AA_DrawLine(arrowPoints[1].x, arrowPoints[1].y, arrowPoints[2].x, arrowPoints[2].y);
+        GUI_EnableAlpha(0);
+        break;
+    default:
+        BUTTON_Callback(pMsg);
+        break;
+    }
+}
+
+static void _cbDownButton(WM_MESSAGE * pMsg)
+{
+    GUI_RECT Rect;
+    int state;
+    switch (pMsg->MsgId) {
+    case WM_PAINT:
+        // Draw button
+        GUI_EnableAlpha(1);
+        state = BUTTON_IsPressed(pMsg->hWin);
+        if (state) {
+            GUI_SetColor(GUI_ORANGE);
+        } else {
+            GUI_SetColor(GUI_BLACK);
+        }
+        WM_GetWindowRectEx(pMsg->hWin, &Rect);
+        int width = WM_GetWindowSizeX(pMsg->hWin);
+        int height = WM_GetWindowSizeY(pMsg->hWin);
+        GUI_AA_FillCircle(width / 2, height / 2, height / 2 - 1);
+        if (state) {
+            GUI_SetColor(GUI_WHITE);
+        } else {
+            GUI_SetColor(GUI_ORANGE);
+        }
+        GUI_SetPenSize(2);
+        GUI_AA_DrawCircle(width / 2, height / 2, height / 2 - 1);
+        const GUI_POINT arrowPoints[3] = {
+            [0] = {
+                .x = width / 5,
+                .y = height - height * 3 / 5,
+            },
+            [1] = {
+                .x = width / 2,
+                .y = height - height * 3 / 10,
+            },
+            [2] = {
+                .x = width - width / 5,
+                .y = height - height * 3 / 5,
+            }
+        };
+        if (state) {
+            GUI_SetColor(GUI_BLACK);
+        } else {
+            GUI_SetColor(GUI_WHITE);
+        }
+        GUI_SetPenSize(6);
+        GUI_AA_DrawLine(arrowPoints[0].x, arrowPoints[0].y, arrowPoints[1].x, arrowPoints[1].y);
+        GUI_AA_DrawLine(arrowPoints[1].x, arrowPoints[1].y, arrowPoints[2].x, arrowPoints[2].y);
+        GUI_EnableAlpha(0);
+        break;
+    default:
+        BUTTON_Callback(pMsg);
+        break;
+    }
+}
+
 static void screenTestCb(WM_MESSAGE * pMsg)
 {
     static int Id;
@@ -352,13 +478,13 @@ static void screenTestCb(WM_MESSAGE * pMsg)
     BUTTON_Handle hButton;
     static EDIT_Handle hEditQuantity;
     static DROPDOWN_Handle hDropdown;
-    static WM_HWIN hBoxX10;
+    static LISTWHEEL_Handle hListwheel;
     static WM_HWIN hBoxX1000;
     static WM_HWIN hSwitchRandomTest;
+    static WM_HWIN hSliderQuantity;
     static WM_HWIN hSliderPressPeriod;
     static WM_HWIN hSliderPressHoldTime;
-
-    static const char * _acContent[] = {
+    static const char * dropdownContent[] = {
         "Console",
         "SD_Card",
     };
@@ -374,23 +500,33 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         hButton = BUTTON_CreateEx(10 + 75 + 20 + 75 + 20, LCD_GetYSize() - 50, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_START);
         BUTTON_SetText(hButton, "Start");
         BUTTON_SetFont(hButton, &GUI_Font13B_1);
+        hButton = BUTTON_CreateEx(240, 160, 45, 45, pMsg->hWin, WM_CF_SHOW | WM_CF_HASTRANS, 0, ID_BUTTON_DOWN);
+        WM_SetCallback(hButton, _cbDownButton);
+        hButton = BUTTON_CreateEx(300, 160, 45, 45, pMsg->hWin, WM_CF_SHOW | WM_CF_HASTRANS, 0, ID_BUTTON_UP);
+        WM_SetCallback(hButton, _cbUpButton);
         hButton = BUTTON_CreateEx(380, 130, 75, 40, pMsg->hWin, WM_CF_SHOW, 0, ID_BUTTON_RANDOM_TEST);
         WM_SetCallback(hButton, _cbRandomTestButton);
 
-        hBoxX10 = CHECKBOX_CreateEx(350, 10, 60, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK0);
-        hBoxX1000 = CHECKBOX_CreateEx(350, 40, 80, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_CHECK1);
+        hBoxX1000 = CHECKBOX_CreateEx(380, 5, 80, 30, pMsg->hWin, WM_CF_SHOW, 0, ID_CHECKBOX_X1000);
         // Edit widget properties.
-        CHECKBOX_SetText(hBoxX10, "x10");
         CHECKBOX_SetText(hBoxX1000, "x1000");
-        CHECKBOX_SetTextColor(hBoxX10, GUI_GREEN);
         CHECKBOX_SetTextColor(hBoxX1000, GUI_GREEN);
-        CHECKBOX_SetFont(hBoxX10, &GUI_Font16_1);
         CHECKBOX_SetFont(hBoxX1000, &GUI_Font16_1);
         // Manually set the state
         CHECKBOX_SetState(hBoxX1000, 1);
-    
+
+        hSliderQuantity = SLIDER_CreateEx(10, 10, 220, 40, pMsg->hWin, WM_CF_SHOW, SLIDER_CF_HORIZONTAL, ID_SLIDER_QUANTITY);
+        // Set range of slider
+        SLIDER_SetRange(hSliderQuantity, 1, 100);
+        // Set number of tick marks
+        SLIDER_SetNumTicks(hSliderQuantity, 25);
+        // Set value of slider
+        SLIDER_SetValue(hSliderQuantity, 1);
+        // Set width of thumb
+        SLIDER_SetWidth(hSliderQuantity, 25);
+
         // Create horizonzal slider. A vertical slider can be created with SLIDER_CF_VERTICAL instead.
-        hSliderPressPeriod = SLIDER_CreateEx(10, 60, 220, 40, pMsg->hWin, WM_CF_SHOW, SLIDER_CF_HORIZONTAL, GUI_ID_SLIDER0);
+        hSliderPressPeriod = SLIDER_CreateEx(10, 60, 220, 40, pMsg->hWin, WM_CF_SHOW, SLIDER_CF_HORIZONTAL, ID_SLIDER_PRESS_PERIOD);
         // Set range of slider
         SLIDER_SetRange(hSliderPressPeriod, 65, 1000);
         // Set number of tick marks
@@ -401,7 +537,7 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         SLIDER_SetWidth(hSliderPressPeriod, 25);
 
         // Create horizonzal slider. A vertical slider can be created with SLIDER_CF_VERTICAL instead.
-        hSliderPressHoldTime = SLIDER_CreateEx(10, 110, 220, 40, pMsg->hWin, WM_CF_SHOW, SLIDER_CF_HORIZONTAL, GUI_ID_SLIDER1);
+        hSliderPressHoldTime = SLIDER_CreateEx(10, 110, 220, 40, pMsg->hWin, WM_CF_SHOW, SLIDER_CF_HORIZONTAL, ID_SLIDER_PRESS_HOLD);
         // Set range of slider
         SLIDER_SetRange(hSliderPressHoldTime, 1, 64);
         // Set number of tick marks
@@ -411,27 +547,30 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         // Set width of thumb
         SLIDER_SetWidth(hSliderPressHoldTime, 25);
 
-        // Create quantity text
-        TEXT_Handle hTextQuantity = TEXT_CreateEx(10, 0, 70, 20, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_TEXT0, "Quantity");
-        TEXT_SetBkColor(hTextQuantity, GUI_BLACK);
-        TEXT_SetFont(hTextQuantity, &GUI_Font20_1);
-        TEXT_SetTextColor(hTextQuantity, GUI_LIGHTBLUE);
+        // // Create quantity text
+        // TEXT_Handle hTextQuantity = TEXT_CreateEx(10, 0, 70, 20, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_TEXT0, "Quantity");
+        // TEXT_SetBkColor(hTextQuantity, GUI_BLACK);
+        // TEXT_SetFont(hTextQuantity, &GUI_Font20_1);
+        // TEXT_SetTextColor(hTextQuantity, GUI_LIGHTBLUE);
 
         // Create quantity edit
-        hEditQuantity = EDIT_CreateEx(10, 20, 70, 30, pMsg->hWin, WM_CF_SHOW, 0, GUI_ID_EDIT0, 6);
-        EDIT_SetUlongMode(hEditQuantity, 1000, 1, 500000);
-        EDIT_SetFont(hEditQuantity, &GUI_Font20B_1);
-        EDIT_SetInsertMode(hEditQuantity, 1);
-        EDIT_EnableBlink(hEditQuantity, 250, 1);
-        EDIT_SetCursorAtChar(hEditQuantity, 0);
+        // hEditQuantity = EDIT_CreateEx(10, 20, 70, 30, pMsg->hWin, WM_CF_SHOW | WM_CF_HASTRANS, 0, GUI_ID_EDIT0, 6);
+        // EDIT_SetUlongMode(hEditQuantity, 1000, 1, 500000);
+        // EDIT_SetFont(hEditQuantity, &GUI_Font16B_1);
+        // EDIT_SetTextColor(hEditQuantity, EDIT_CI_ENABLED, GUI_YELLOW);
+        // EDIT_SetTextColor(hEditQuantity, EDIT_CI_DISABLED, GUI_RED);
+        // EDIT_SetInsertMode(hEditQuantity, 1);
+        // EDIT_EnableBlink(hEditQuantity, 250, 1);
+        // EDIT_SetCursorAtChar(hEditQuantity, 0);
 
         // Create DropDown menu
         // Create listbox widget
         // The flag DROPDOWN_CF_AUTOSCROLLBAR makes sure that a scrollbar is added, if the text is too big
-        hDropdown = DROPDOWN_CreateEx(380, 100, 90, GUI_COUNTOF(_acContent) * 25, pMsg->hWin, WM_CF_SHOW, DROPDOWN_CF_AUTOSCROLLBAR, GUI_ID_DROPDOWN0);
+        hDropdown = DROPDOWN_CreateEx(380, 100, 90, GUI_COUNTOF(dropdownContent) * 25, pMsg->hWin, WM_CF_SHOW,
+                                      DROPDOWN_CF_AUTOSCROLLBAR, ID_DROPDOWN_OUTPUT_STREAM);
         // Add items to widget
-        for (int i = 0; i < GUI_COUNTOF(_acContent); i++) {
-            DROPDOWN_AddString(hDropdown, *(_acContent + i));
+        for (int i = 0; i < GUI_COUNTOF(dropdownContent); i++) {
+            DROPDOWN_AddString(hDropdown, *(dropdownContent + i));
         }
         // Edit some properties
         DROPDOWN_SetFont(hDropdown, &GUI_Font16B_1);
@@ -440,13 +579,18 @@ static void screenTestCb(WM_MESSAGE * pMsg)
         break;
     case WM_PAINT:
         // This case is called everytime the window has to be redrawn
-        // GUI_SetBkColor(GUI_BLACK);
         GUI_SetBkColor(GUI_BLACK);
         GUI_Clear();
 
         // Display slider value
-        GUI_SetFont(&GUI_Font16_1);
+        GUI_SetFont(&GUI_Font16B_1);
         GUI_SetColor(GUI_WHITE);
+
+        Value = SLIDER_GetValue(hSliderQuantity);
+        int myltiplyX1000 = CHECKBOX_GetState(hBoxX1000);
+        // Value * myltiplyX1000 ? 1000 : 1
+        sprintf(acBuffer, "Quantity: %lu", Value);
+        GUI_DispStringAt(acBuffer, 245, 10);
         
         Value = SLIDER_GetValue(hSliderPressPeriod);
         sprintf(acBuffer, "Period: %d, ms", Value);
@@ -498,7 +642,7 @@ static void screenTestCb(WM_MESSAGE * pMsg)
                 WM_ShowWin(screenHandle[SCREEN_ID_MENU]);
             }
             break;
-        case GUI_ID_CHECK0:
+        case ID_CHECKBOX_X1000:
             if (NCode == WM_NOTIFICATION_CLICKED) {
                 // TODO: set x10 multiplier
                 //
@@ -507,7 +651,18 @@ static void screenTestCb(WM_MESSAGE * pMsg)
                 WM_InvalidateWindow(pMsg->hWin);
             }
             break;
-        case GUI_ID_SLIDER0:
+        case ID_SLIDER_QUANTITY:
+            if (NCode == WM_NOTIFICATION_VALUE_CHANGED) {
+                Value = SLIDER_GetValue(hSliderQuantity);
+                if (Value < 1) {
+                    Value = 1;
+                    SLIDER_SetValue(hSliderQuantity, Value);
+                }
+                // Redraw the window when a value has changed so the displayed value will be updated.
+                WM_InvalidateWindow(pMsg->hWin);
+            }
+            break;
+        case ID_SLIDER_PRESS_PERIOD:
             if (NCode == WM_NOTIFICATION_VALUE_CHANGED) {
                 Value = SLIDER_GetValue(hSliderPressPeriod);
                 if (Value < 65) {
@@ -523,7 +678,7 @@ static void screenTestCb(WM_MESSAGE * pMsg)
                 WM_InvalidateWindow(pMsg->hWin);
             }
             break;
-        case GUI_ID_SLIDER1:
+        case ID_SLIDER_PRESS_HOLD:
             if (NCode == WM_NOTIFICATION_VALUE_CHANGED) {
                 Value = SLIDER_GetValue(hSliderPressPeriod);
                 int pressPeriod = SLIDER_GetValue(hSliderPressHoldTime);
@@ -531,11 +686,6 @@ static void screenTestCb(WM_MESSAGE * pMsg)
                     SLIDER_SetValue(hSliderPressHoldTime, Value - 1);
                 }
                 // Redraw the window when a value has changed so the displayed value will be updated.
-                WM_InvalidateWindow(pMsg->hWin);
-            }
-        case GUI_ID_SWITCH0:
-            if (NCode == WM_NOTIFICATION_VALUE_CHANGED) {
-                // Redraw parent window when the value has changed.
                 WM_InvalidateWindow(pMsg->hWin);
             }
             break;
@@ -552,7 +702,7 @@ static void screenTestCb(WM_MESSAGE * pMsg)
                 // TODO: hide keyboard
             }
             break;
-        case GUI_ID_DROPDOWN0:
+        case ID_DROPDOWN_OUTPUT_STREAM:
             if (NCode == WM_NOTIFICATION_SEL_CHANGED) {
                 if (DROPDOWN_GetSel(hDropdown) == 1) {
                     // WM_HWIN hMessage = GUI_MessageBox("Wait...","Initing SD_Card", GUI_MESSAGEBOX_CF_MOVEABLE);
