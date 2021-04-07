@@ -152,12 +152,12 @@ void guiTerminalEcho(const char *message, int len)
 
 static void _cbTerminal(WM_MESSAGE * pMsg)
 {
-    GUI_RECT         Rect;
-    GUI_RECT         CRect;
-    WM_MOTION_INFO * pInfo;
+    GUI_RECT Rect;
+    GUI_RECT CRect;
+    WM_MOTION_INFO *pInfo;
     WM_SCROLL_STATE State;
-    static int       yOffset;
-    static int       MaxOffset;
+    static int yOffset;
+    static int MaxOffset;
 
     switch (pMsg->MsgId) {
     case WM_MOTION:
@@ -179,8 +179,7 @@ static void _cbTerminal(WM_MESSAGE * pMsg)
                 // If reach the end, make sure we stop there
                 yOffset = MaxOffset;
                 pInfo->StopMotion = 1;
-            }
-            else if (yOffset > 0) {
+            } else if (yOffset > 0) {
                 // If reach the top, make sure we stop there
                 yOffset = 0;
                 pInfo->StopMotion = 1;
@@ -399,7 +398,7 @@ static void _cbUpButton(WM_MESSAGE * pMsg)
         } else {
             GUI_SetColor(GUI_WHITE);
         }
-        GUI_SetPenSize(6);
+        GUI_SetPenSize(width / 10);
         GUI_AA_DrawLine(arrowPoints[0].x, arrowPoints[0].y, arrowPoints[1].x, arrowPoints[1].y);
         GUI_AA_DrawLine(arrowPoints[1].x, arrowPoints[1].y, arrowPoints[2].x, arrowPoints[2].y);
         GUI_EnableAlpha(0);
@@ -454,7 +453,7 @@ static void _cbDownButton(WM_MESSAGE * pMsg)
         } else {
             GUI_SetColor(GUI_WHITE);
         }
-        GUI_SetPenSize(6);
+        GUI_SetPenSize(width / 10);
         GUI_AA_DrawLine(arrowPoints[0].x, arrowPoints[0].y, arrowPoints[1].x, arrowPoints[1].y);
         GUI_AA_DrawLine(arrowPoints[1].x, arrowPoints[1].y, arrowPoints[2].x, arrowPoints[2].y);
         GUI_EnableAlpha(0);
