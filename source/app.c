@@ -33,6 +33,8 @@
 #include "reportDescriptorParser.h"
 #include "ringbuffer.h"
 #include "gui.h"
+#include "protocol.h"
+#include "packetProcessor.h"
 
 #if ((!USB_HOST_CONFIG_KHCI) && (!USB_HOST_CONFIG_EHCI) && (!USB_HOST_CONFIG_OHCI) && (!USB_HOST_CONFIG_IP3516HS))
 #error Please enable USB_HOST_CONFIG_KHCI, USB_HOST_CONFIG_EHCI, USB_HOST_CONFIG_OHCI, or USB_HOST_CONFIG_IP3516HS in file usb_host_config.
@@ -279,6 +281,7 @@ RingBuffer reportRingBuff;
 static rbdatatype inReport[10] = {0};
 static uint32_t zeroTransactionCount = 0;
 static bool usbConfigured = false;
+extern int DbgConsole_SendDataReliable(uint8_t *ch, size_t size);
 
 static void timeCounterInit(void)
 {
@@ -902,6 +905,36 @@ void onBoardReset(void)
     NVIC_SystemReset();
 }
 
+void onPacketReceived(const Packet *packet)
+{
+    switch(packet->general.id) {
+	case PACKET_ID_START:
+
+        break;
+
+	case PACKET_ID_STOP:
+
+        break;
+
+	case PACKET_ID_PROPERTY:
+
+        break;
+
+	case PACKET_ID_PING:
+        packetProcessorSendPacket(packet);
+        break;
+    
+    default:
+        assert(0);
+        break;
+    }
+}
+
+void onPacketSend(const Packet *packet)
+{
+    DbgConsole_SendDataReliable(packet, packet->general.len);
+}
+
 int main(void) {
     /* Delay at the beginning of the main, you know...
     nothing works without it, fixes display initialization */
@@ -950,14 +983,20 @@ int main(void) {
     POWER_DisablePD(kPDRUNCFG_PD_USB1_PHY); /*< Turn on USB Phy */
     USB_HostApplicationInit();
     RingBuffer_Init(&reportRingBuff, inReport, sizeof(inReport) / sizeof(inReport[0]));
+    packetProcessorInit(onPacketReceived, onPacketSend);
     TestHandle handle = {
         .testIsRunning = false,
     };
     uint32_t timestamp = getTimeMs();
     uint32_t guiTimestamp = getTimeMs();
+    char byte;
 
     while (1)
     {
+        if (DbgConsole_TryGetchar(&byte) == kStatus_Success) {
+            packetProcessorReceiveByte(byte);
+        }
+
         USB_HostTaskFn(g_HostHandle);
         for (uint32_t interface = 0; interface < USB_HOST_CONFIG_CONFIGURATION_MAX_INTERFACE; interface++) {
             if (g_HostHidGeneric[interface].interfaceUsed) {

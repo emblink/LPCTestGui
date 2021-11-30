@@ -22,13 +22,13 @@
 #define SERIAL_MANAGER_NON_BLOCKING_MODE (1U)
 #else
 #ifndef SERIAL_MANAGER_NON_BLOCKING_MODE
-#define SERIAL_MANAGER_NON_BLOCKING_MODE (0U)
+#define SERIAL_MANAGER_NON_BLOCKING_MODE (1U)
 #endif
 #endif
 
 /*! @brief Enable or disable uart port (1 - enable, 0 - disable) */
 #ifndef SERIAL_PORT_TYPE_UART
-#define SERIAL_PORT_TYPE_UART (0U)
+#define SERIAL_PORT_TYPE_UART (1U)
 #endif
 
 /*! @brief Enable or disable USB CDC port (1 - enable, 0 - disable) */

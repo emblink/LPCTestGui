@@ -164,6 +164,8 @@ set(APP_SOURCE_FILES
     ./source/ringbuffer.c
     ./source/sdcard_fatfs.c
     ./source/semihost_hardfault.c
+    ./source/cobsEncoder.c
+    ./source/packetProcessor.c
     ./gui/gui.c
     ./gui/corsairLogoCubeGif100x100_30fps.c
     ./gui/toggleSwitch.c
